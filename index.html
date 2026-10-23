@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wild Color – Wild World Hair</title>
+  <meta name="description" content="Wild Color by Wild World Hair: professional hair color, bleach and peroxide.">
+  <meta name="theme-color" content="#222222">
+
+  <!-- Font: Roboto (stesso carattere del sito di partenza) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="site-header" id="top">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="index.html" aria-label="Wild Color – Home">
+        <img src="assets/img/logo/wild-color-logo-white.png" alt="Wild Color" width="366" height="48">
+      </a>
+
+      <button class="menu-toggle" type="button"
+              aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MENU A PANINO (pannello a tutto schermo)
+       Voci dal menu "Header Wild EN" del sito di partenza.
+       I link "#" verranno collegati man mano che creiamo le pagine.
+       ============================================================ -->
+  <nav class="site-menu" id="site-menu" aria-label="Main menu" hidden>
+    <ul class="menu">
+
+      <li class="menu__item has-sub">
+        <button class="menu__link menu__toggle" type="button" aria-expanded="false">Products</button>
+        <ul class="menu__sub">
+          <li><a class="menu__link" href="#">Wild Color Hair Color Cream</a></li>
+          <li><a class="menu__link" href="#">Wild Bleach</a></li>
+          <li><a class="menu__link" href="#">Wild Peroxide</a></li>
+        </ul>
+      </li>
+
+      <li class="menu__item">
+        <a class="menu__link" href="#">Contact us</a>
+      </li>
+
+      <li class="menu__item has-sub">
+        <button class="menu__link menu__toggle" type="button" aria-expanded="false">Technical information</button>
+        <ul class="menu__sub">
+          <li class="has-sub">
+            <button class="menu__link menu__toggle" type="button" aria-expanded="false">Technical SDS sheets</button>
+            <ul class="menu__sub">
+              <li><a class="menu__link" href="#">Hair Color Cream</a></li>
+              <li><a class="menu__link" href="#">Bleach</a></li>
+              <li><a class="menu__link" href="#">Peroxide</a></li>
+            </ul>
+          </li>
+          <li><a class="menu__link" href="#">Technical manual</a></li>
+          <li class="has-sub">
+            <button class="menu__link menu__toggle" type="button" aria-expanded="false">Color chart</button>
+            <ul class="menu__sub">
+              <li><a class="menu__link" href="#">Compact Color Chart</a></li>
+              <li><a class="menu__link" href="#">Binder Color Chart</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       CONTENUTO (vuoto: le pagine si costruiscono una alla volta)
+       ============================================================ -->
+  <main class="site-main" id="main"></main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__company"><strong>Wild</strong> World <strong>Hair</strong> S.r.l.</p>
+      <p class="site-footer__info">
+        Via Cirene, 7 – 20135 Milano (MI) – Italy
+        <span class="sep" aria-hidden="true">|</span>
+        <a href="mailto:info@wildworldhair.com">info@wildworldhair.com</a>
+      </p>
+      <p class="site-footer__legal">
+        P.IVA / C.F. / Reg. Impr. MI 08678280960
+        <span class="sep" aria-hidden="true">|</span>
+        © <span data-year>2026</span> Wild World Hair S.r.l.
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
