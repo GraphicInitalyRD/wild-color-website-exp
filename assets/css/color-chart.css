@@ -1,0 +1,183 @@
+/* ==========================================================================
+   WILD COLOR – Pagina Color Chart
+   Fondo bianco come il PDF della cartella colori; tavole a tutta larghezza;
+   ogni ciocca è un pulsante trasparente che apre la finestra d'ingrandimento.
+   ========================================================================== */
+
+/* Fondo bianco solo per questa pagina (header e footer restano scuri) */
+body.page-color-chart {
+  --c-bg: #ffffff;
+  --c-text: #222222;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Tavole ------------------------------------------------------------------ */
+.cc {
+  max-width: none;
+  padding: 40px var(--gutter) 64px;
+}
+
+.cc-sheet {
+  max-width: var(--sheet-w, 1100px);   /* stessa scala per tutte le tavole */
+  margin: 0 auto 48px;
+}
+.cc-sheet:last-child { margin-bottom: 0; }
+
+.cc-sheet__canvas {
+  position: relative;
+  width: 100%;
+}
+
+.cc-sheet__img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Area cliccabile sopra ogni ciocca */
+.cc-swatch {
+  position: absolute;
+  border-radius: 3px;
+  cursor: zoom-in;
+  transition: box-shadow .2s var(--ease), transform .2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cc-swatch:hover,
+.cc-swatch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--c-accent), 0 6px 18px rgba(0, 0, 0, .18);
+  transform: scale(1.04);
+}
+
+/* Finestra d'ingrandimento ------------------------------------------------ */
+.cc-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .82);
+  opacity: 0;
+  transition: opacity .25s var(--ease);
+}
+.cc-lightbox[hidden] { display: none; }
+.cc-lightbox.is-open { opacity: 1; }
+
+.cc-lightbox__card {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 56px 32px;
+  background: #ffffff;
+  border-top: 3px solid var(--c-accent);
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+  text-align: center;
+  transform: translateY(10px) scale(.98);
+  transition: transform .25s var(--ease);
+}
+.cc-lightbox.is-open .cc-lightbox__card { transform: none; }
+
+.cc-lightbox__name {
+  margin: 0;
+  color: #222;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.2;
+}
+
+.cc-lightbox__family {
+  margin: 6px 0 0;
+  color: var(--c-accent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.cc-lightbox__line {
+  margin: 2px 0 18px;
+  color: #8a8f91;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.cc-lightbox__figure {
+  margin: 0;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.cc-lightbox__img {
+  width: auto;
+  max-width: 100%;
+  height: min(460px, calc(100vh - 220px));
+  height: min(460px, calc(100dvh - 220px));
+  object-fit: contain;
+}
+
+/* Chiudi */
+.cc-lightbox__close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  line-height: 40px;
+  color: #888;
+  transition: color .2s;
+}
+.cc-lightbox__close:hover { color: var(--c-accent); }
+
+/* Frecce precedente / successiva */
+.cc-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 64px;
+  margin-top: -32px;
+  color: #999;
+  transition: color .2s;
+}
+.cc-lightbox__nav::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 14px;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+}
+.cc-lightbox__nav--prev { left: 4px; }
+.cc-lightbox__nav--next { right: 4px; }
+.cc-lightbox__nav--prev::before { transform: translate(-30%, -50%) rotate(-45deg); }
+.cc-lightbox__nav--next::before { transform: translate(-70%, -50%) rotate(135deg); }
+.cc-lightbox__nav:hover { color: var(--c-accent); }
+
+/* Responsive -------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .cc { padding: 24px 8px 40px; }      /* tavole più larghe possibile sul telefono */
+  .cc-sheet { margin-bottom: 28px; }
+  .cc-lightbox { padding: 16px; }
+  .cc-lightbox__card { padding: 24px 44px 26px; }
+  .cc-lightbox__name { font-size: 22px; }
+  .cc-lightbox__nav { width: 40px; }
+}
