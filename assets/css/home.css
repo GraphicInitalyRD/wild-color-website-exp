@@ -43,24 +43,35 @@
 }
 
 .home-hero__media {
+  /* spostamento per portare al centro i tubetti (px immagine × scala) */
+  --pan-l: calc(309.5 * var(--s));      /* tubetto a sinistra  */
+  --pan-r: calc(-325.5 * var(--s));     /* tubetto a destra    */
   position: absolute;
   inset: 0;
 }
 
+/* L'immagine è dimensionata in modo esplicito ("cover" calcolato con --s),
+   centrata e ancorata in basso: così può anche scorrere di lato. */
 .home-hero__media img {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--img-w) * var(--s));
+  height: calc(var(--img-h) * var(--s));
   max-width: none;
-  object-fit: cover;
-  object-position: 50% 100%;
+  margin-left: calc(var(--img-w) * var(--s) / -2);
   animation: hero-in 1.2s var(--ease) both;
 }
 
 /* ---- Parole in sequenza ------------------------------------------------- */
+/* scala dell'immagine sullo schermo (fallback senza container query) */
+.home-hero__media,
+.home-hero__media img,
 .home-words {
-  /* scala dell'immagine (fallback senza container query) */
   --s: max(100vw / var(--img-w), (100vh - var(--header-h)) / var(--img-h));
+}
 
+.home-words {
   position: absolute;
   left: 0;
   right: 0;
@@ -81,6 +92,8 @@
 }
 
 @supports (container-type: size) {
+  .home-hero__media,
+  .home-hero__media img,
   .home-words { --s: max(100cqw / var(--img-w), 100cqh / var(--img-h)); }
 }
 
@@ -128,9 +141,87 @@
   white-space: nowrap;
 }
 
+/* ---- Schermi stretti (telefono, tablet verticale) -------------------------
+   Qui i tubetti restano fuori dallo schermo: tra una parola e l'altra
+   l'immagine scorre e porta al centro, a turno, il tubetto di sinistra e
+   quello di destra; torna al centro prima che compaia la parola seguente.
+   Ogni parola: entra 0,6 s · resta 1,5 s · esce 0,5 s · pausa 2,2 s
+   (scorrimento 0,85 s · fermo 0,5 s · ritorno 0,85 s) = 4,8 s.
+   Ciclo parole 33.6 s; ciclo scorrimento 67.2 s (14 pause, alternate).
+   -------------------------------------------------------------------------- */
+@container (max-aspect-ratio: 11/10) {
+  .home-words li { animation: word-m 33.6s linear infinite; }
+  .home-words li:nth-child(1) { animation-delay: 1.0s; }
+  .home-words li:nth-child(2) { animation-delay: 5.8s; }
+  .home-words li:nth-child(3) { animation-delay: 10.6s; }
+  .home-words li:nth-child(4) { animation-delay: 15.4s; }
+  .home-words li:nth-child(5) { animation-delay: 20.2s; }
+  .home-words li:nth-child(6) { animation-delay: 25.0s; }
+  .home-words li:nth-child(7) { animation-delay: 29.8s; }
+
+  .home-hero__media {
+    animation: pan 67.2s cubic-bezier(.65, 0, .35, 1) 1s infinite;
+  }
+}
+
+@keyframes word-m {
+    0%      { opacity: 0; filter: blur(6px); letter-spacing: .30em; padding-left: .30em; }
+    1.786%  { opacity: 1; filter: blur(0);   letter-spacing: .22em; padding-left: .22em; }
+    6.250%  { opacity: 1; filter: blur(0); }
+    7.738%  { opacity: 0; filter: blur(3px); }
+    100%    { opacity: 0; }
+  }
+
+@keyframes pan {
+    0% { transform: translateX(0); }
+    3.869% { transform: translateX(0); }
+    5.134%, 5.878% { transform: translateX(var(--pan-l)); }
+    7.143% { transform: translateX(0); }
+    11.012% { transform: translateX(0); }
+    12.277%, 13.021% { transform: translateX(var(--pan-r)); }
+    14.286% { transform: translateX(0); }
+    18.155% { transform: translateX(0); }
+    19.420%, 20.164% { transform: translateX(var(--pan-l)); }
+    21.429% { transform: translateX(0); }
+    25.298% { transform: translateX(0); }
+    26.562%, 27.307% { transform: translateX(var(--pan-r)); }
+    28.571% { transform: translateX(0); }
+    32.440% { transform: translateX(0); }
+    33.705%, 34.449% { transform: translateX(var(--pan-l)); }
+    35.714% { transform: translateX(0); }
+    39.583% { transform: translateX(0); }
+    40.848%, 41.592% { transform: translateX(var(--pan-r)); }
+    42.857% { transform: translateX(0); }
+    46.726% { transform: translateX(0); }
+    47.991%, 48.735% { transform: translateX(var(--pan-l)); }
+    50.000% { transform: translateX(0); }
+    53.869% { transform: translateX(0); }
+    55.134%, 55.878% { transform: translateX(var(--pan-r)); }
+    57.143% { transform: translateX(0); }
+    61.012% { transform: translateX(0); }
+    62.277%, 63.021% { transform: translateX(var(--pan-l)); }
+    64.286% { transform: translateX(0); }
+    68.155% { transform: translateX(0); }
+    69.420%, 70.164% { transform: translateX(var(--pan-r)); }
+    71.429% { transform: translateX(0); }
+    75.298% { transform: translateX(0); }
+    76.562%, 77.307% { transform: translateX(var(--pan-l)); }
+    78.571% { transform: translateX(0); }
+    82.440% { transform: translateX(0); }
+    83.705%, 84.449% { transform: translateX(var(--pan-r)); }
+    85.714% { transform: translateX(0); }
+    89.583% { transform: translateX(0); }
+    90.848%, 91.592% { transform: translateX(var(--pan-l)); }
+    92.857% { transform: translateX(0); }
+    96.726% { transform: translateX(0); }
+    97.991%, 98.735% { transform: translateX(var(--pan-r)); }
+    100% { transform: translateX(0); }
+  }
+
 /* "riduci movimento": solo dissolvenza, senza sfocatura né spaziatura animata */
 @media (prefers-reduced-motion: reduce) {
   .home-hero__media img { animation: none; }
+  .home-hero__media { animation: none !important; }
   .home-words li { animation-name: word-soft; }
   @keyframes word-soft {
     0%    { opacity: 0; }
@@ -138,5 +229,15 @@
     11.5% { opacity: 1; }
     14.3% { opacity: 0; }
     100%  { opacity: 0; }
+  }
+  @container (max-aspect-ratio: 11/10) {
+    .home-words li { animation-name: word-soft-m; }
+  }
+  @keyframes word-soft-m {
+    0%      { opacity: 0; }
+    1.786%  { opacity: 1; }
+    6.250%  { opacity: 1; }
+    7.738%  { opacity: 0; }
+    100%    { opacity: 0; }
   }
 }
