@@ -13,6 +13,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="preload" as="font" href="assets/fonts/montserrat-400.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/img/home/home-hero.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
 
@@ -80,9 +83,32 @@
   </nav>
 
   <!-- ============================================================
-       CONTENUTO (vuoto: le pagine si costruiscono una alla volta)
+       HOME PROVVISORIA
+       Immagine a tutto schermo; le parole compaiono in sequenza
+       sul grembiule, sotto il logo (stile e tempi in home.css).
        ============================================================ -->
-  <main class="site-main" id="main"></main>
+  <main class="site-main site-main--home" id="main">
+    <section class="home-hero" aria-labelledby="home-title">
+      <h1 class="visually-hidden" id="home-title">Wild Color – Welcome. This is our world: haircolor, innovative products for hairstyling.</h1>
+
+      <picture class="home-hero__media">
+        <source srcset="assets/img/home/home-hero.webp" type="image/webp">
+        <img src="assets/img/home/home-hero.jpg" width="1373" height="768"
+             alt="Hairdresser wearing a Wild Color apron, holding two Wild Color hair color tubes"
+             fetchpriority="high">
+      </picture>
+
+      <ul class="home-words" aria-hidden="true">
+        <li>Welcome</li>
+        <li>This is</li>
+        <li>Our world</li>
+        <li>Haircolor</li>
+        <li>Innovative</li>
+        <li>Products</li>
+        <li>For hairstyling</li>
+      </ul>
+    </section>
+  </main>
 
   <!-- ============================================================
        FOOTER

@@ -1,0 +1,142 @@
+/* ==========================================================================
+   WILD COLOR – Home provvisoria
+   Immagine a tutto schermo + parole in sequenza sul grembiule.
+
+   COME FUNZIONA L'ALLINEAMENTO
+   L'immagine (1373 × 768 px) è ritagliata in modo che il logo WILD COLOR
+   sul grembiule sia esattamente al centro orizzontale. Viene mostrata
+   "a riempimento" (cover) e ancorata in basso, quindi il grembiule resta
+   sempre visibile e il logo sempre centrato nella pagina.
+   --s è la scala reale dell'immagine sullo schermo: tutte le misure delle
+   scritte sono in "pixel dell'immagine" × --s, così le parole restano
+   nello stesso punto del grembiule su qualsiasi schermo.
+   ========================================================================== */
+
+/* Montserrat (licenza SIL OFL) ospitato nel sito: stesso stile del logo */
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.site-main--home {
+  max-width: none;
+  padding: 0;
+  min-height: 0;
+}
+
+.home-hero {
+  --img-w: 1373;            /* larghezza immagine in px */
+  --img-h: 768;             /* altezza immagine in px   */
+  --words-y: 86;            /* centro delle scritte: px dal fondo dell'immagine */
+  --words-size: 24;         /* corpo del testo in px dell'immagine */
+
+  position: relative;
+  height: calc(100vh - var(--header-h));
+  height: calc(100svh - var(--header-h));
+  min-height: 320px;
+  overflow: hidden;
+  background: #000;
+  container-type: size;
+}
+
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero__media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 100%;
+  animation: hero-in 1.2s var(--ease) both;
+}
+
+/* ---- Parole in sequenza ------------------------------------------------- */
+.home-words {
+  /* scala dell'immagine (fallback senza container query) */
+  --s: max(100vw / var(--img-w), (100vh - var(--header-h)) / var(--img-h));
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--words-y) * var(--s));
+  height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #fff;
+  font-family: "Montserrat", var(--font);
+  font-weight: 400;
+  font-size: calc(var(--words-size) * var(--s));
+  line-height: 1;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@supports (container-type: size) {
+  .home-words { --s: max(100cqw / var(--img-w), 100cqh / var(--img-h)); }
+}
+
+.home-words li {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  transform: translateY(-50%);
+  text-align: center;
+  padding-left: .22em;              /* compensa la spaziatura dopo l'ultima lettera */
+  opacity: 0;
+  animation: word 18.2s linear infinite;   /* 7 parole × 2,6 s */
+}
+
+.home-words li:nth-child(1) { animation-delay:  1.0s; }
+.home-words li:nth-child(2) { animation-delay:  3.6s; }
+.home-words li:nth-child(3) { animation-delay:  6.2s; }
+.home-words li:nth-child(4) { animation-delay:  8.8s; }
+.home-words li:nth-child(5) { animation-delay: 11.4s; }
+.home-words li:nth-child(6) { animation-delay: 14.0s; }
+.home-words li:nth-child(7) { animation-delay: 16.6s; }
+
+/* ogni parola: entra 0,6 s · resta 1,5 s · esce 0,5 s (su 18,2 s) */
+@keyframes word {
+  0%     { opacity: 0; filter: blur(6px); letter-spacing: .30em; padding-left: .30em; }
+  3.3%   { opacity: 1; filter: blur(0);   letter-spacing: .22em; padding-left: .22em; }
+  11.5%  { opacity: 1; filter: blur(0); }
+  14.3%  { opacity: 0; filter: blur(3px); }
+  100%   { opacity: 0; }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* testo per lettori di schermo / motori di ricerca */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* "riduci movimento": solo dissolvenza, senza sfocatura né spaziatura animata */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__media img { animation: none; }
+  .home-words li { animation-name: word-soft; }
+  @keyframes word-soft {
+    0%    { opacity: 0; }
+    3.3%  { opacity: 1; }
+    11.5% { opacity: 1; }
+    14.3% { opacity: 0; }
+    100%  { opacity: 0; }
+  }
+}
