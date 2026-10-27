@@ -50,23 +50,51 @@
   inset: 0;
 }
 
-/* L'immagine è dimensionata in modo esplicito ("cover" calcolato con --s),
-   centrata e ancorata in basso: così può anche scorrere di lato. */
-.home-hero__media img {
+/* La foto è dimensionata in modo esplicito ("cover" calcolato con --s),
+   centrata e ancorata in basso: così può anche scorrere di lato.
+   Dentro ci sono la foto base e due livelli "capelli" sovrapposti. */
+.home-hero__photo {
   position: absolute;
   left: 50%;
   bottom: 0;
   width: calc(var(--img-w) * var(--s));
   height: calc(var(--img-h) * var(--s));
-  max-width: none;
   margin-left: calc(var(--img-w) * var(--s) / -2);
   animation: hero-in 1.2s var(--ease) both;
 }
 
+.home-hero__photo img {
+  position: absolute;
+  max-width: none;
+}
+
+.home-hero__base {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Capelli che cambiano colore ----------------------------------------
+   Ogni tinta è un ritaglio dei soli capelli (447 × 680 px, con trasparenza)
+   preso dalla stessa foto: x 468, y 44 nell'immagine 1373 × 768.
+   Due livelli si alternano: quello nuovo compare in dissolvenza sopra
+   quello vecchio (tempi e sequenza in home.js). */
+.home-hair {
+  left:   calc(468 / 1373 * 100%);
+  top:    calc(44 / 768 * 100%);
+  width:  calc(447 / 1373 * 100%);
+  height: calc(680 / 768 * 100%);
+  opacity: 0;
+  transition: opacity var(--hair-fade, 1.4s) cubic-bezier(.45, 0, .55, 1);
+  pointer-events: none;
+}
+.home-hair.is-on  { opacity: 1; }
+.home-hair.is-top { z-index: 2; }
+
 /* ---- Parole in sequenza ------------------------------------------------- */
 /* scala dell'immagine sullo schermo (fallback senza container query) */
 .home-hero__media,
-.home-hero__media img,
+.home-hero__photo,
 .home-words {
   --s: max(100vw / var(--img-w), (100vh - var(--header-h)) / var(--img-h));
 }
@@ -93,7 +121,7 @@
 
 @supports (container-type: size) {
   .home-hero__media,
-  .home-hero__media img,
+  .home-hero__photo,
   .home-words { --s: max(100cqw / var(--img-w), 100cqh / var(--img-h)); }
 }
 
@@ -220,7 +248,7 @@
 
 /* "riduci movimento": solo dissolvenza, senza sfocatura né spaziatura animata */
 @media (prefers-reduced-motion: reduce) {
-  .home-hero__media img { animation: none; }
+  .home-hero__photo { animation: none; }
   .home-hero__media { animation: none !important; }
   .home-words li { animation-name: word-soft; }
   @keyframes word-soft {

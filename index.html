@@ -91,12 +91,19 @@
     <section class="home-hero" aria-labelledby="home-title">
       <h1 class="visually-hidden" id="home-title">Wild Color – Welcome. This is our world: haircolor, innovative products for hairstyling.</h1>
 
-      <picture class="home-hero__media">
-        <source srcset="assets/img/home/home-hero.webp" type="image/webp">
-        <img src="assets/img/home/home-hero.jpg" width="1373" height="768"
-             alt="Hairdresser wearing a Wild Color apron, holding two Wild Color hair color tubes"
-             fetchpriority="high">
-      </picture>
+      <div class="home-hero__media">
+        <div class="home-hero__photo">
+          <picture>
+            <source srcset="assets/img/home/home-hero.webp" type="image/webp">
+            <img class="home-hero__base" src="assets/img/home/home-hero.jpg" width="1373" height="768"
+                 alt="Hairdresser wearing a Wild Color apron, holding two Wild Color hair color tubes"
+                 fetchpriority="high">
+          </picture>
+          <!-- livelli capelli: riempiti da home.js -->
+          <img class="home-hair" alt="" aria-hidden="true" width="447" height="680">
+          <img class="home-hair" alt="" aria-hidden="true" width="447" height="680">
+        </div>
+      </div>
 
       <ul class="home-words" aria-hidden="true">
         <li>Welcome</li>
@@ -130,5 +137,6 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/home.js" defer></script>
 </body>
 </html>
