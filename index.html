@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/home.css?v=20261027">
   <link rel="preload" as="font" href="assets/fonts/montserrat-400.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/home/home-hero.webp" type="image/webp" fetchpriority="high">
 </head>
@@ -88,7 +88,7 @@
        sul grembiule, sotto il logo (stile e tempi in home.css).
        ============================================================ -->
   <main class="site-main site-main--home" id="main">
-    <section class="home-hero" aria-labelledby="home-title">
+    <section class="home-hero" aria-labelledby="home-title" data-hair-count="19" data-hair-version="20261027">
       <h1 class="visually-hidden" id="home-title">Wild Color – Welcome. This is our world: haircolor, innovative products for hairstyling.</h1>
 
       <div class="home-hero__media">
@@ -99,9 +99,11 @@
                  alt="Hairdresser wearing a Wild Color apron, holding two Wild Color hair color tubes"
                  fetchpriority="high">
           </picture>
-          <!-- livelli capelli: riempiti da home.js -->
-          <img class="home-hair" alt="" aria-hidden="true" width="447" height="680">
-          <img class="home-hair" alt="" aria-hidden="true" width="447" height="680">
+          <!-- livelli capelli (assets/img/home/hair/hair-01…19.webp): riempiti da home.js;
+               se si cambiano le immagini: aggiornare data-hair-count e data-hair-version qui sopra
+               (la versione evita che i browser mostrino le vecchie immagini rimaste in cache) -->
+          <img class="home-hair" alt="" aria-hidden="true" width="472" height="698">
+          <img class="home-hair" alt="" aria-hidden="true" width="472" height="698">
         </div>
       </div>
 
@@ -137,6 +139,6 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/home.js" defer></script>
+  <script src="assets/js/home.js?v=20261027" defer></script>
 </body>
 </html>

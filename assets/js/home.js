@@ -10,7 +10,8 @@
      è spostata sul tubetto (3,2 s dopo l'inizio), dissolvenza 1 s, così
      quando la ragazza rientra i capelli sono già diversi.
 
-   Sequenza: colore originale della foto, poi le 30 tinte, e si ricomincia.
+   Sequenza: colore originale della foto, poi le tinte hair-01 … hair-NN
+   (NN = data-hair-count sulla sezione .home-hero), e si ricomincia.
    ========================================================================== */
 (function () {
   "use strict";
@@ -20,8 +21,10 @@
   var layers = document.querySelectorAll(".home-hair");
   if (!hero || !words || layers.length < 2) return;
 
-  var TOTAL = 30;                                   // hair-01 … hair-30
+  var TOTAL = parseInt(hero.getAttribute("data-hair-count"), 10) || 0;
+  if (TOTAL < 1) return;
   var PATH  = "assets/img/home/hair/hair-";
+  var VER   = hero.getAttribute("data-hair-version") || "";   // contro la cache del browser
 
   // tempi (secondi) per ciascuna animazione delle parole
   var TIMING = {
@@ -31,12 +34,12 @@
     "word-soft-m": { at: 2.6, fade: 1.4 }
   };
 
-  var state  = 0;          // 0 = colore originale della foto, 1…30 = tinte
+  var state  = 0;          // 0 = colore originale della foto, 1…TOTAL = tinte
   var front  = null;       // livello visibile in questo momento
   var cache  = {};         // tinte già scaricate e decodificate
   var timer  = null;
 
-  function src(n) { return PATH + (n < 10 ? "0" : "") + n + ".webp"; }
+  function src(n) { return PATH + (n < 10 ? "0" : "") + n + ".webp" + (VER ? "?v=" + VER : ""); }
 
   // scarica in anticipo una tinta (non blocca nulla)
   function preload(n) {
