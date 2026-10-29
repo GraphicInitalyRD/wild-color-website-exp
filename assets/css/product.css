@@ -68,7 +68,7 @@
   background: #fff;
 }
 
-.product-sheet--dark { background: #231f20; }
+.product-sheet--dark { background: #000; }   /* stesso nero della pagina (nel PDF era #231f20) */
 
 .product-sheet__img {
   width: 100%;

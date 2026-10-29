@@ -55,7 +55,7 @@
   aspect-ratio: 844.439 / 595.276;
   container-type: inline-size;
   overflow: hidden;
-  background: #231f20;
+  background: #000;                /* stesso nero della pagina (nel PDF era #231f20) */
 }
 
 .oxy-sheet__bg {
@@ -179,7 +179,7 @@
   aspect-ratio: 844.439 / 595.276;   /* come il riquadro in alto */
   container-type: inline-size;
   overflow: hidden;
-  background: #231f20;
+  background: #000;                /* stesso nero della pagina (nel PDF era #231f20) */
 }
 
 .usage-sheet__bg {

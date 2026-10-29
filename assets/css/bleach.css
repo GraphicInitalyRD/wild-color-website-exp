@@ -43,7 +43,8 @@
   aspect-ratio: 844.439 / 595.276;
   container-type: inline-size;
   overflow: hidden;
-  background: #1d1d1b;
+  background: #000;                /* stesso nero dei bordi della foto dell'acrobata
+                                      (nel PDF era #1d1d1b: si vedeva lo stacco) */
 }
 
 /* Immagini a destra (da x 287,1 pt al bordo; le due tavole sono già
