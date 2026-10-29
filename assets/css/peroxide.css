@@ -1,0 +1,262 @@
+/* ==========================================================================
+   WILD COLOR – Pagina Peroxide (Oxidizing emulsion cream)
+   Riquadro in alto dalla tavola "Oxy pages" (844,44 × 595,28 pt):
+   sfondo con il titolo + bottiglie che si alternano + 4 quadrati che si
+   riempiono + numero che sale + testo a macchina (vedi peroxide.js).
+   Riquadro in basso dalla tavola "Bottom box Oxy pages" (stessa misura):
+   foto della ragazza con le bottiglie + istruzioni d'uso scritte a macchina
+   a sinistra dei capelli (vedi peroxide-usage.js).
+   Tutte le posizioni sono in % della tavola: su computer e telefono
+   i riquadri restano identici, solo più piccoli.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure: quella installata sul dispositivo
+   (Mac, iPhone, iPad). Dove manca si passa a Roboto (Google Fonts). */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Thin"), local("Helvetica Neue Thin");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+/* titoli del riquadro in basso: Helvetica Neue Bold Italic */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-BoldItalic"), local("Helvetica Neue Bold Italic");
+  font-weight: 700;
+  font-style: italic;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.oxy-sheet {
+  --oxy-color: #c3a0d9;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 844.439 / 595.276;
+  container-type: inline-size;
+  overflow: hidden;
+  background: #231f20;
+}
+
+.oxy-sheet__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottiglie: tutte nella stessa posizione, si alternano in dissolvenza */
+.oxy-bottle {
+  position: absolute;
+  left: 29.083%;
+  top: 4.846%;
+  width: 70.917%;
+  height: 94.917%;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+.oxy-bottle.is-active { opacity: 1; }
+
+/* Quadrati (x 729,6–795,5 pt; lato 65,9 pt) */
+.oxy-square {
+  position: absolute;
+  left: 86.398%;
+  width: 7.807%;
+  height: 11.075%;
+  background: #fff;
+}
+.oxy-square--1 { top: 75.557%; }   /* in basso: si riempie per primo */
+.oxy-square--2 { top: 60.914%; }
+.oxy-square--3 { top: 46.435%; }
+.oxy-square--4 { top: 31.958%; }
+
+.oxy-square__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--oxy-color);
+  clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%);
+}
+
+/* Numero (cifre Gobold disegnate dallo script) */
+.oxy-num {
+  position: absolute;
+  left: 80.527%;
+  top: 7.560%;
+  width: 19.303%;
+  height: 23.519%;
+  overflow: visible;
+  fill: var(--oxy-color);
+}
+
+/* Scritta VOL sotto i quadrati (tracciati dal PDF dell'utente, x 745,5–779,6 pt,
+   y 526,9–547,1 pt): pulsa dal centro mentre i quadrati si riempiono (peroxide.js) */
+.oxy-vol {
+  position: absolute;
+  left: 88.169%;
+  top: 88.362%;
+  width: 4.263%;
+  height: 3.696%;
+  overflow: visible;
+  fill: #fff;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Testo a macchina: 7 righe come nel PDF, giustificate
+   (x 28,3–434,7 pt; prima linea di base a 336,8 pt; corpo 30 pt, interlinea 36 pt) */
+.oxy-text {
+  position: absolute;
+  left: 3.357%;
+  top: 51.69%;
+  width: 48.121%;
+  margin: 0;
+  color: #fff;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: calc(3.5526cqw * var(--oxy-fit, 1));
+  line-height: 4.2632cqw;          /* 36 pt: resta fisso anche se il corpo si riduce */
+  pointer-events: none;
+}
+
+.oxy-line {
+  display: flex;
+  justify-content: space-between;
+  column-gap: .2em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.oxy-line--last {
+  justify-content: flex-start;
+  column-gap: .26em;
+}
+
+.oxy-ch { visibility: hidden; }
+.oxy-ch.is-on { visibility: visible; }
+.oxy-ch.is-bold { font-weight: 700; }
+
+/* cursore arancio, come nella pagina Hair Color Cream */
+.oxy-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: oxy-blink 1s steps(1) infinite;
+}
+.oxy-text.is-typing .oxy-text__cursor { animation: none; }
+
+@keyframes oxy-blink { 50% { opacity: 0; } }
+
+/* ==========================================================================
+   Riquadro in basso: istruzioni d'uso
+   ========================================================================== */
+.usage-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 844.439 / 595.276;   /* come il riquadro in alto */
+  container-type: inline-size;
+  overflow: hidden;
+  background: #231f20;
+}
+
+.usage-sheet__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Area del testo: margine di 28,3 pt a sinistra, in alto e in basso
+   (come il testo del riquadro in alto); a destra arriva al bordo, ma le righe
+   si fermano sul contorno dei capelli disegnato da .usage-block__shape */
+.usage-text {
+  position: absolute;
+  left: 3.357%;
+  right: 0;
+  top: 4.762%;
+  bottom: 4.762%;
+  color: #fff;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  /* corpo base 20 pt; --usage-fit (dallo script) lo adatta al blocco più lungo */
+  font-size: calc(2.3685cqw * var(--usage-fit, 1));
+  line-height: 1.2;
+  text-align: left;               /* bandiera: con le righe che si accorciano
+                                     lungo i capelli il giustificato farebbe buchi */
+  hyphens: none;
+  pointer-events: none;
+}
+
+.usage-block {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+.usage-block.is-active { visibility: visible; }
+
+/* Contorno dei capelli (ricavato dalla trasparenza della foto, con 18 pt
+   di distanza): il testo va a capo prima di toccarlo */
+.usage-block__shape {
+  float: right;
+  width: 100%;
+  height: 100%;
+  shape-outside: polygon(100% 0%, 64.94% 0%, 63.69% 5.56%, 62.44% 11.11%, 60.89% 16.67%,
+    59.29% 22.22%, 57.44% 27.78%, 55.54% 33.33%, 53.26% 38.89%, 51.14% 44.44%,
+    48.90% 50%, 46.40% 55.56%, 43.99% 61.11%, 41.66% 66.67%, 39.03% 72.22%,
+    37.48% 77.78%, 35.45% 83.33%, 33.42% 88.89%, 31.44% 94.44%, 29.46% 100%, 100% 100%);
+}
+
+.usage-block p { margin: 0; }
+.usage-block__title {
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.usage-block .usage-ch { visibility: hidden; }
+.usage-block.is-active .usage-ch.is-on { visibility: visible; }
+
+.usage-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: oxy-blink 1s steps(1) infinite;
+}
+.usage-text.is-typing .usage-text__cursor { animation: none; }
+
+@media (max-width: 600px) {
+  .product { gap: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oxy-bottle { transition: none; }
+  .oxy-text__cursor,
+  .usage-text__cursor { display: none; }
+}
