@@ -1,0 +1,169 @@
+/* ==========================================================================
+   WILD COLOR – Pagina Bleach (Bleaching Powder Plex Nine+)
+   Un riquadro dalla tavola "bleach wild color page assets" (stessa misura
+   dei riquadri della pagina Peroxide, 844,44 × 595,28 pt):
+   - a destra le immagini (acrobata / barattolo) che si alternano con
+     un'onda di quadrati (vedi bleach.js);
+   - sopra, fisso, il titolo BLEACHING POWDER PLEX NINE+;
+   - i 36 quadratini, che a ogni cambio immagine fanno un'onda;
+   - a sinistra, sotto il titolo, il testo scritto a macchina, che non
+     arriva mai sopra le immagini.
+   Tutte le posizioni sono in % della tavola: su computer e telefono
+   il riquadro resta identico, solo più piccolo.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure: quella installata sul dispositivo
+   (Mac, iPhone, iPad). Dove manca si passa a Roboto (Google Fonts). */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Thin"), local("Helvetica Neue Thin");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.bleach-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 844.439 / 595.276;
+  container-type: inline-size;
+  overflow: hidden;
+  background: #1d1d1b;
+}
+
+/* Immagini a destra (da x 287,1 pt al bordo; le due tavole sono già
+   complete di fondo, così l'onda copre sempre del tutto quella sotto) */
+.bleach-slide,
+.bleach-wave {
+  position: absolute;
+  left: 34%;
+  top: 0;
+  width: 66%;
+  height: 100%;
+}
+
+.bleach-slide {
+  opacity: 0;
+}
+.bleach-slide.is-active { opacity: 1; }
+
+/* Onda di quadrati: ogni quadrato mostra il suo pezzo dell'immagine nuova
+   e cresce dal centro; il ritardo di ognuno è impostato da bleach.js */
+.bleach-wave {
+  pointer-events: none;
+}
+.bleach-wave__tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  transform: scale(0);
+  transition: transform .52s cubic-bezier(.2, .7, .2, 1);
+}
+.bleach-wave.is-on .bleach-wave__tile { transform: scale(1.02); }
+.bleach-wave.is-reset .bleach-wave__tile { transition: none; }
+
+/* Titolo, fisso sopra le immagini */
+.bleach-sheet__over {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Quadratini 18 × 2 (lato 16,93 pt; da x 388,35 a 778,38 pt, y 28,35–66,50 pt).
+   A ogni cambio immagine bleach.js aggiunge .is-waving: ogni colonna si
+   ingrandisce e torna normale, una dopo l'altra da sinistra a destra. */
+.bleach-squares {
+  position: absolute;
+  left: 45.989%;
+  top: 4.762%;
+  width: 46.188%;
+  height: 6.410%;
+  display: grid;
+  grid-template-columns: repeat(18, 4.3402%);
+  grid-template-rows: repeat(2, 44.364%);
+  justify-content: space-between;
+  align-content: space-between;
+  pointer-events: none;
+}
+.bleach-sq {
+  background: #fff;
+}
+.bleach-squares.is-waving .bleach-sq {
+  animation: bleach-sq-wave .6s ease-in-out both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+@keyframes bleach-sq-wave {
+  0%, 100% { transform: scale(1); }
+  40%      { transform: scale(1.6); }
+}
+
+/* Testo a macchina: sotto il titolo, da x 28,3 pt a 269 pt
+   (18 pt prima della foto) e da y 246 pt a 567 pt */
+.bleach-text {
+  position: absolute;
+  left: 3.357%;
+  top: 41.326%;
+  width: 28.498%;
+  bottom: 4.75%;
+  color: #fff;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  /* corpo base 20 pt; --bleach-fit (dallo script) lo adatta al blocco più lungo */
+  font-size: calc(2.3685cqw * var(--bleach-fit, 1));
+  line-height: 1.2;
+  text-align: left;
+  hyphens: none;
+  pointer-events: none;
+}
+
+.bleach-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  visibility: hidden;
+}
+.bleach-block.is-active { visibility: visible; }
+.bleach-block strong { font-weight: 700; }
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.bleach-block .bleach-ch { visibility: hidden; }
+.bleach-block.is-active .bleach-ch.is-on { visibility: visible; }
+
+/* cursore arancio, come nelle altre pagine */
+.bleach-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: bleach-blink 1s steps(1) infinite;
+}
+.bleach-text.is-typing .bleach-text__cursor { animation: none; }
+
+@keyframes bleach-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bleach-text__cursor { display: none; }
+  .bleach-wave { display: none; }
+  .bleach-squares.is-waving .bleach-sq { animation: none; }
+}
