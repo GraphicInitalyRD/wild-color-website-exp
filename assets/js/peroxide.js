@@ -1,7 +1,8 @@
 /* ==========================================================================
    WILD COLOR – Pagina Peroxide (Oxidizing emulsion cream)
    Riquadro in alto: le 6 bottiglie (2,5 · 5 · 10 · 20 · 30 · 40 vol)
-   si alternano in loop, ognuna per lo stesso tempo (SLOT_MS).
+   si alternano in loop, ognuna per lo stesso tempo (SLOT_MS): appena il
+   testo a sinistra è scritto fino alla fine si passa alla bottiglia successiva.
    A ogni bottiglia:
    - il testo a sinistra si cancella e si riscrive a macchina;
    - i 4 quadrati bianchi si riempiono in diagonale (dall'angolo in basso
@@ -16,10 +17,11 @@
 (function () {
   'use strict';
 
-  var SLOT_MS      = 6000;  // tempo totale di ogni bottiglia
   var ERASE_MS     = 300;   // cancellazione del testo (tutto)
   var TYPE_START   = 380;   // inizio battitura
   var TYPE_END     = 4300;  // fine battitura
+  var END_HOLD_MS  = 200;   // testo completo, poi subito la bottiglia successiva
+  var SLOT_MS      = TYPE_END + END_HOLD_MS;  // tempo totale di ogni bottiglia (4,5 s)
   var FILL_START   = 450;   // inizio riempimento quadrati
   var FILL_BASE_MS = 300;   // riempimento: tempo fisso...
   var FILL_PER_10  = 550;   // ...+ tempo ogni 10 volumi (= ogni quadrato)
