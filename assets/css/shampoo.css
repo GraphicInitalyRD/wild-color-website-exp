@@ -1,0 +1,183 @@
+/* ==========================================================================
+   WILD COLOR – Pagina Shampoo (Anti-Yellow Shampoo Extra Violet Pigment)
+   Un riquadro dalla tavola "Antiyellow shampoo wildcolor website page
+   assets" (841,89 × 790,56 pt: volutamente più alto degli altri):
+   - in alto, fisso, il titolo ANTI-YELLOW SHAMPOO / EXTRA VIOLET PIGMENT;
+   - la striscia di 52 quadratini (4 rosa) che fa l'onda a ogni cambio
+     immagine, con il blocco rosa che la segue (vedi shampoo.js);
+   - sotto, le immagini (ragazze / flaconi) che si alternano con l'onda di
+     quadrati della pagina Bleach;
+   - la scritta "Expecially for acid colors" che pulsa di continuo;
+   - in basso il testo rosa scritto a macchina in 2 blocchi.
+   Tutte le posizioni sono in % della tavola: su computer e telefono
+   il riquadro resta identico, solo più piccolo.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure: quella installata sul dispositivo
+   (Mac, iPhone, iPad). Dove manca si passa a Roboto (Google Fonts). */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Thin"), local("Helvetica Neue Thin");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.shampoo-sheet {
+  --shampoo-pink: #d0a1c9;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 841.89 / 790.563;
+  container-type: inline-size;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Immagini (da y 174,5 pt, cioè dalla striscia, fino in fondo; le due
+   tavole sono già complete di fondo, così l'onda copre sempre quella sotto) */
+.shampoo-slide,
+.shampoo-wave {
+  position: absolute;
+  left: 0;
+  top: 22.079%;
+  width: 100%;
+  height: 77.921%;
+}
+
+.shampoo-slide { opacity: 0; }
+.shampoo-slide.is-active { opacity: 1; }
+
+/* Onda di quadrati per il cambio immagine (come la pagina Bleach) */
+.shampoo-wave { pointer-events: none; }
+.shampoo-wave__tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  transform: scale(0);
+  transition: transform .52s cubic-bezier(.2, .7, .2, 1);
+}
+.shampoo-wave.is-on .shampoo-wave__tile { transform: scale(1.02); }
+.shampoo-wave.is-reset .shampoo-wave__tile { transition: none; }
+
+/* Titolo, fisso (x 28–814 pt, y 24–159 pt) */
+.shampoo-sheet__title {
+  position: absolute;
+  left: 3.326%;
+  top: 3.036%;
+  width: 93.361%;
+  height: 17.076%;
+  pointer-events: none;
+}
+
+/* Striscia di quadratini: 26 colonne × 2 righe, lato 25,33 pt, da y 174,5 pt.
+   La prima e l'ultima colonna escono un po' dai bordi, come nel PDF.
+   Ogni colonna è posizionata nell'HTML (left); .is-pink = blocco rosa. */
+.shampoo-squares {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.shampoo-col {
+  position: absolute;
+  top: 22.079%;
+  width: 3.009%;
+  height: 7.222%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.shampoo-sq {
+  height: 44.363%;
+  background: #fff;
+}
+.shampoo-col.is-pink .shampoo-sq { background: var(--shampoo-pink); }
+
+/* onda: shampoo.js imposta --s (ingrandimento) su ogni colonna */
+.shampoo-col .shampoo-sq { transform: scale(var(--s, 1)); }
+
+/* "Expecially for acid colors" (x 130–712 pt, y 586–680 pt): pulsa sempre */
+.shampoo-sheet__script {
+  position: absolute;
+  left: 15.441%;
+  top: 74.124%;
+  width: 69.130%;
+  height: 11.890%;
+  pointer-events: none;
+  transform-origin: 50% 55%;
+  animation: shampoo-pulse 2.4s ease-in-out infinite;
+}
+@keyframes shampoo-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+
+/* Testo a macchina: stesso ingombro del testo del PDF
+   (x 43,9–798 pt, y 689,9–780,6 pt) */
+.shampoo-text {
+  position: absolute;
+  left: 5.216%;
+  top: 87.267%;
+  width: 89.571%;
+  bottom: 1.26%;
+  color: var(--shampoo-pink);
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  /* corpo del PDF 14,9 pt; --shampoo-fit (dallo script) lo ingrandisce
+     finché il blocco più lungo sta nell'ingombro */
+  font-size: calc(1.7683cqw * var(--shampoo-fit, 1));
+  line-height: 1.2;
+  text-align: justify;
+  text-align-last: left;
+  hyphens: none;
+  pointer-events: none;
+}
+
+.shampoo-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  visibility: hidden;
+}
+.shampoo-block.is-active { visibility: visible; }
+.shampoo-block strong { font-weight: 700; }
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.shampoo-block .shampoo-ch { visibility: hidden; }
+.shampoo-block.is-active .shampoo-ch.is-on { visibility: visible; }
+
+/* cursore arancio, come nelle altre pagine */
+.shampoo-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: shampoo-blink 1s steps(1) infinite;
+}
+.shampoo-text.is-typing .shampoo-text__cursor { animation: none; }
+
+@keyframes shampoo-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .shampoo-text__cursor { display: none; }
+  .shampoo-wave { display: none; }
+  .shampoo-sheet__script { animation: none; }
+}
