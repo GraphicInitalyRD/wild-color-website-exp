@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/peroxide.css?v=20261029d">
+  <link rel="stylesheet" href="assets/css/peroxide.css?v=20261030">
 </head>
 <body class="page-product">
 
@@ -157,17 +157,72 @@
       </svg>
 
       <!-- testo vero (letto da Google e dai lettori di schermo) -->
-      <p class="visually-hidden"><strong>Wild Color™ Oxygen</strong> is the ideal complement to Wild Color™ Coloring creams. A creamy, emollient-rich formulation that is easy to apply, has reduced sensitizing power and an excellent overall cosmetic result. Available in 2,5 – 5 – 10 – 20 – 30 – 40 volumes.</p>
+      <ul class="visually-hidden">
+        <li><strong>Wild Color™ Oxygen</strong> 2,5 vol (0,75%) is the ideal partner for Acid colors. A delicate developer for a light effect: it revives tone, adds shine and enhances reflections, always respecting the hair.</li>
+        <li><strong>Wild Color™ Oxygen</strong> 5 vol (1,5%) is the right choice for toning. A gentle developer that deposits color with minimal lift, neutralizes unwanted tones and leaves the hair soft, shiny and evenly toned.</li>
+        <li><strong>Wild Color™ Oxygen</strong> 10 vol (3%) is ideal for darker shades and tone-on-tone coloring on the same level. It gives full, rich color without lightening, for a deep, long-lasting and brilliant result.</li>
+        <li><strong>Wild Color™ Oxygen</strong> 20 vol (6%) is the most versatile: it ensures full grey coverage, lifts the hair by one level and, used with bleach, provides a mild lightening of 2–3 levels with even, reliable results.</li>
+        <li><strong>Wild Color™ Oxygen</strong> 30 vol (9%) lifts the hair by 1–2 levels, by 2–3 levels when mixed with super-lighteners and, used with bleach, gives a medium-intensity lightening of 4–5 levels for bright, even results.</li>
+        <li><strong>Wild Color™ Oxygen</strong> 40 vol (12%) lifts the hair by 2 levels, by 3–4 levels when mixed with super-lighteners and, used with bleach, gives a strong lightening of 6–7 levels for maximum lift and vibrant results.</li>
+      </ul>
 
-      <!-- stesso testo, righe come nel PDF, scritto a macchina -->
+      <!-- stesso testo scritto a macchina: una frase per ogni bottiglia (stesso ordine),
+           righe giustificate come nella brochure -->
       <div class="oxy-text" aria-hidden="true">
-        <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> is the</span>
-        <span class="oxy-line">ideal complement to Wild Color™</span>
-        <span class="oxy-line">Coloring creams. A creamy,</span>
-        <span class="oxy-line">emollient-rich formulation that</span>
-        <span class="oxy-line">is easy to apply, has reduced</span>
-        <span class="oxy-line">sensitizing power and an excellent</span>
-        <span class="oxy-line oxy-line--last">overall cosmetic result.</span>
+        <div class="oxy-text__set" data-vol="2.5">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 2,5 vol</span>
+          <span class="oxy-line">(0,75%) is the ideal partner</span>
+          <span class="oxy-line">for Acid colors. A delicate</span>
+          <span class="oxy-line">developer for a light effect:</span>
+          <span class="oxy-line">it revives tone, adds shine and</span>
+          <span class="oxy-line">enhances reflections, always</span>
+          <span class="oxy-line oxy-line--last">respecting the hair.</span>
+        </div>
+        <div class="oxy-text__set" data-vol="5">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 5 vol</span>
+          <span class="oxy-line">(1,5%) is the right choice for</span>
+          <span class="oxy-line">toning. A gentle developer that</span>
+          <span class="oxy-line">deposits color with minimal lift,</span>
+          <span class="oxy-line">neutralizes unwanted tones and</span>
+          <span class="oxy-line">leaves the hair soft, shiny and</span>
+          <span class="oxy-line oxy-line--last">evenly toned.</span>
+        </div>
+        <div class="oxy-text__set" data-vol="10">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 10 vol</span>
+          <span class="oxy-line">(3%) is ideal for darker shades</span>
+          <span class="oxy-line">and tone-on-tone coloring on</span>
+          <span class="oxy-line">the same level. It gives full,</span>
+          <span class="oxy-line">rich color without lightening,</span>
+          <span class="oxy-line">for a deep, long-lasting and</span>
+          <span class="oxy-line oxy-line--last">brilliant result.</span>
+        </div>
+        <div class="oxy-text__set" data-vol="20">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 20 vol</span>
+          <span class="oxy-line">(6%) is the most versatile: it</span>
+          <span class="oxy-line">ensures full grey coverage,</span>
+          <span class="oxy-line">lifts the hair by one level and,</span>
+          <span class="oxy-line">used with bleach, provides a</span>
+          <span class="oxy-line">mild lightening of 2–3 levels</span>
+          <span class="oxy-line oxy-line--last">with even, reliable results.</span>
+        </div>
+        <div class="oxy-text__set" data-vol="30">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 30 vol</span>
+          <span class="oxy-line">(9%) lifts the hair by 1–2 levels,</span>
+          <span class="oxy-line">by 2–3 levels when mixed with</span>
+          <span class="oxy-line">super-lighteners and, used with</span>
+          <span class="oxy-line">bleach, gives a medium-intensity</span>
+          <span class="oxy-line">lightening of 4–5 levels for</span>
+          <span class="oxy-line oxy-line--last">bright, even results.</span>
+        </div>
+        <div class="oxy-text__set" data-vol="40">
+          <span class="oxy-line"><strong>Wild Color™ Oxygen</strong> 40 vol</span>
+          <span class="oxy-line">(12%) lifts the hair by 2 levels,</span>
+          <span class="oxy-line">by 3–4 levels when mixed with</span>
+          <span class="oxy-line">super-lighteners and, used with</span>
+          <span class="oxy-line">bleach, gives a strong lightening</span>
+          <span class="oxy-line">of 6–7 levels for maximum lift</span>
+          <span class="oxy-line oxy-line--last">and vibrant results.</span>
+        </div>
         <span class="oxy-text__cursor"></span>
       </div>
     </section>
@@ -184,9 +239,6 @@
 
       <!-- testo vero (letto da Google e dai lettori di schermo) -->
       <div class="visually-hidden">
-        <h3>COLOR USAGE</h3>
-        <p>Wild Color Permanent, Ammonia free and All free colors are specially formulated to ensure 100% coverage of grey hair.</p>
-        <p>Application time from 25 minutes to 45 minutes in accordance with the desired level of lightening and coverage.</p>
         <h3>BLENDING</h3>
         <p>White hair less than 30%: 1:2 with Oxygen</p>
         <p>White hair over 30%: 1:1,5 (1/4 natural base + 3/4 Reflection color)</p>
@@ -196,24 +248,10 @@
         <p>Wild Color toners, correctors, intensifiers: They are activated by Oxygen and the dosage depends on the application (1:2).</p>
         <p>Wild Color comes with a creamy OXIDANT, rich in emollients and easy to apply.</p>
         <p>It has a reduced sensitizing power.</p>
-        <h3>OXYGEN USAGE</h3>
-        <p>2,5 volumes (0.75%): for acid colors</p>
-        <p>5 volumes (1.5%): to tone.</p>
-        <p>10 volumes (3%): to darken / color on the same level.</p>
-        <p>20 volumes (6%): to cover grey hair; to lighten by one level; for mild bleaching of 2-3 levels.</p>
-        <p>25 volumes (7.5%): to cover grey hair with the use of Ammonia Free and All Free colors (mix in equal parts 20 vol and 30 vol oxygens)</p>
-        <p>30 volumes (9%): for lightening 1-2 levels; for lightening 2-3 levels with super-lighteners; for medium intensity bleaching of 4-5 levels.</p>
-        <p>40 volumes (12%): for lightening 2 levels; for lightening 3-4 levels with super-lighteners; for strong bleaching of 6-7 levels.</p>
       </div>
 
-      <!-- stesso testo, 3 blocchi scritti a macchina uno alla volta -->
+      <!-- stesso testo (solo il blocco BLENDING), scritto a macchina: resta fermo 30 s, poi si riscrive -->
       <div class="usage-text" aria-hidden="true">
-        <div class="usage-block">
-          <span class="usage-block__shape"></span>
-          <p class="usage-block__title">COLOR USAGE:</p>
-          <p>Wild Color Permanent, Ammonia free and All free colors are specially formulated to ensure 100% coverage of grey hair.</p>
-          <p>Application time from 25 minutes to 45 minutes in accordance with the desired level of lightening and coverage.</p>
-        </div>
         <div class="usage-block">
           <span class="usage-block__shape"></span>
           <p class="usage-block__title">BLENDING:</p>
@@ -225,17 +263,6 @@
           <p>Wild Color toners, correctors, intensifiers: They are activated by Oxygen and the dosage depends on the application (1:2).</p>
           <p>Wild Color comes with a creamy OXIDANT, rich in emollients and easy to apply.</p>
           <p>It has a reduced sensitizing power.</p>
-        </div>
-        <div class="usage-block">
-          <span class="usage-block__shape"></span>
-          <p class="usage-block__title">OXYGEN USAGE:</p>
-          <p>2,5 volumes (0.75%): for acid colors</p>
-          <p>5 volumes (1.5%): to tone.</p>
-          <p>10 volumes (3%): to darken / color on the same level.</p>
-          <p>20 volumes (6%): to cover grey hair; to lighten by one level; for mild bleaching of 2-3 levels.</p>
-          <p>25 volumes (7.5%): to cover grey hair with the use of Ammonia Free and All Free colors (mix in equal parts 20 vol and 30 vol oxygens)</p>
-          <p>30 volumes (9%): for lightening 1-2 levels; for lightening 2-3 levels with super-lighteners; for medium intensity bleaching of 4-5 levels.</p>
-          <p>40 volumes (12%): for lightening 2 levels; for lightening 3-4 levels with super-lighteners; for strong bleaching of 6-7 levels.</p>
         </div>
         <span class="usage-text__cursor"></span>
       </div>
@@ -262,7 +289,7 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/peroxide.js?v=20261029c" defer></script>
-  <script src="assets/js/peroxide-usage.js?v=20261029" defer></script>
+  <script src="assets/js/peroxide.js?v=20261030" defer></script>
+  <script src="assets/js/peroxide-usage.js?v=20261030" defer></script>
 </body>
 </html>

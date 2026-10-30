@@ -1,27 +1,27 @@
 /* ==========================================================================
    WILD COLOR – Pagina Peroxide (Oxidizing emulsion cream)
    Riquadro in alto: le 6 bottiglie (2,5 · 5 · 10 · 20 · 30 · 40 vol)
-   si alternano in loop, ognuna per lo stesso tempo (SLOT_MS): appena il
-   testo a sinistra è scritto fino alla fine si passa alla bottiglia successiva.
+   si alternano in loop, ognuna per 10 secondi (SLOT_MS).
    A ogni bottiglia:
-   - il testo a sinistra si cancella e si riscrive a macchina;
+   - la frase della bottiglia precedente si cancella e a sinistra si scrive
+     a macchina quella della nuova bottiglia (una frase per ogni volume,
+     .oxy-text__set nello stesso ordine delle bottiglie);
    - i 4 quadrati bianchi si riempiono in diagonale (dall'angolo in basso
      a destra, dal quadrato in basso verso l'alto) fino al livello del PDF;
    - il numero sopra sale insieme al colore fino al valore della bottiglia;
    - la scritta VOL sotto i quadrati pulsa (fino al 150%) mentre si riempiono.
-   Le bottiglie con il valore più alto si riempiono più a lungo; il tempo
-   che resta fermo sullo stato finale compensa, così il totale è uguale.
+   Quando la frase è scritta e i quadrati sono pieni, tutto resta fermo
+   fino allo scadere dei 10 secondi, poi si passa alla bottiglia successiva.
    Si ferma quando il riquadro non è visibile. Con "riduci movimento"
    resta ferma la prima bottiglia nello stato finale.
    ========================================================================== */
 (function () {
   'use strict';
 
-  var ERASE_MS     = 300;   // cancellazione del testo (tutto)
+  var SLOT_MS      = 10000; // tempo totale di ogni bottiglia (10 s, giro completo 60 s)
+  var ERASE_MS     = 300;   // cancellazione della frase precedente (tutta)
   var TYPE_START   = 380;   // inizio battitura
-  var TYPE_END     = 4300;  // fine battitura
-  var END_HOLD_MS  = 200;   // testo completo, poi subito la bottiglia successiva
-  var SLOT_MS      = TYPE_END + END_HOLD_MS;  // tempo totale di ogni bottiglia (4,5 s)
+  var TYPE_CHAR_MS = 20;    // battitura: ms per lettera (frasi da ~170 lettere ≈ 3,5 s)
   var FILL_START   = 450;   // inizio riempimento quadrati
   var FILL_BASE_MS = 300;   // riempimento: tempo fisso...
   var FILL_PER_10  = 550;   // ...+ tempo ogni 10 volumi (= ogni quadrato)
@@ -151,11 +151,22 @@
   }
 
   /* ---- Testo a macchina ------------------------------------------------ */
-  // Ogni riga del PDF è una riga a sé, giustificata come nella brochure:
-  // tutte le lettere sono già al loro posto (nascoste) e si accendono una
-  // alla volta, così il testo non si sposta mentre si scrive.
-  var chars = [];
-  Array.prototype.forEach.call(textBox.querySelectorAll('.oxy-line'), function (line) {
+  // Una frase per bottiglia (.oxy-text__set, stesso ordine delle bottiglie).
+  // Ogni riga è una riga a sé, giustificata come nella brochure: tutte le
+  // lettere sono già al loro posto (nascoste) e si accendono una alla volta,
+  // così il testo non si sposta mentre si scrive.
+  var sets = Array.prototype.slice.call(textBox.querySelectorAll('.oxy-text__set'));
+  if (sets.length !== bottles.length) return;
+
+  sets = sets.map(function (set) {
+    var chars = [];
+    Array.prototype.forEach.call(set.querySelectorAll('.oxy-line'), function (line) {
+      splitLine(line, chars);
+    });
+    return { chars: chars, typeMs: chars.length * TYPE_CHAR_MS };
+  });
+
+  function splitLine(line, chars) {
     var words = [];
     var nodes = Array.prototype.slice.call(line.childNodes);
     line.textContent = '';
@@ -178,10 +189,17 @@
         chars.push(span);
       }
     });
-  });
+  }
 
-  var shown = 0;            // lettere visibili
-  function showChars(n) {
+  var chars = sets[0].chars;  // lettere della frase sullo schermo
+  var shown = 0;              // quante sono visibili
+  function showChars(k, n) {
+    if (sets[k].chars !== chars) {
+      // cambio di frase: la precedente è già cancellata, per sicurezza si spegne
+      for (var j = 0; j < shown; j++) chars[j].classList.remove('is-on');
+      chars = sets[k].chars;
+      shown = 0;
+    }
     n = Math.max(0, Math.min(chars.length, Math.round(n)));
     if (n === shown) return;
     // si cambiano solo le lettere tra il vecchio e il nuovo numero
@@ -192,7 +210,7 @@
   }
 
   function placeCursor() {
-    if (!cursor) return;
+    if (!cursor || !chars.length) return;
     var box = textBox.getBoundingClientRect();
     var x, r;
     if (shown > 0) {
@@ -207,6 +225,7 @@
   }
 
   // se con il font del dispositivo una riga non sta, si riduce il corpo
+  // (controllate le righe di tutte e 6 le frasi: il corpo è uguale per tutte)
   function fitText() {
     textBox.style.setProperty('--oxy-fit', 1);
     var fit = 1;
@@ -246,15 +265,18 @@
     var d = data[i];
     setBottle(i);
 
-    // testo: cancella (tutto in ERASE_MS) e riscrive
+    // testo: cancella la frase precedente (tutta in ERASE_MS) e scrive la nuova
+    var k = (i + data.length - 1) % data.length;   // bottiglia precedente
+    var typeEnd = TYPE_START + sets[i].typeMs;
     if (s < ERASE_MS) {
-      showChars(t < SLOT_MS ? 0 : chars.length * (1 - s / ERASE_MS));
+      if (t < SLOT_MS) showChars(i, 0);           // primo giro: niente da cancellare
+      else showChars(k, sets[k].chars.length * (1 - s / ERASE_MS));
     } else if (s < TYPE_START) {
-      showChars(0);
+      showChars(i, 0);
     } else {
-      showChars(chars.length * Math.min(1, (s - TYPE_START) / (TYPE_END - TYPE_START)));
+      showChars(i, sets[i].chars.length * Math.min(1, (s - TYPE_START) / sets[i].typeMs));
     }
-    textBox.classList.toggle('is-typing', s < TYPE_END);
+    textBox.classList.toggle('is-typing', s < typeEnd);
 
     // quadrati, numero e VOL
     var p = Math.max(0, Math.min(1, (s - FILL_START) / d.fillMs));
@@ -292,7 +314,7 @@
   if (reduce) {
     // stato finale della prima bottiglia, testo intero, nessun movimento
     setBottle(0);
-    showChars(chars.length);
+    showChars(0, sets[0].chars.length);
     drawSquares(data[0].level);
     drawNumber(formatVol(data[0].vol, data[0].decimals));
     return;

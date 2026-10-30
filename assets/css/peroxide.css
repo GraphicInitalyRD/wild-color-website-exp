@@ -136,7 +136,12 @@
   font-size: calc(3.5526cqw * var(--oxy-fit, 1));
   line-height: 4.2632cqw;          /* 36 pt: resta fisso anche se il corpo si riduce */
   pointer-events: none;
+  display: grid;                    /* le 6 frasi sono sovrapposte nella stessa area */
 }
+
+/* una frase per bottiglia: tutte nello stesso posto, le lettere sono nascoste
+   finché lo script non le accende (si vede solo quella della bottiglia attiva) */
+.oxy-text__set { grid-area: 1 / 1; }
 
 .oxy-line {
   display: flex;

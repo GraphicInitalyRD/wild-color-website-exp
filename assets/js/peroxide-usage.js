@@ -1,21 +1,24 @@
 /* ==========================================================================
    WILD COLOR – Pagina Peroxide, riquadro in basso (istruzioni d'uso)
-   I 3 blocchi (COLOR USAGE · BLENDING · OXYGEN USAGE) si scrivono a
-   macchina uno alla volta nello spazio nero a sinistra della ragazza:
-   scrive → pausa → cancella → blocco successivo, in loop.
+   Il blocco BLENDING (dal 30/10 l'unico; lo script gestisce comunque
+   più blocchi, uno alla volta) si scrive a macchina nello spazio nero a
+   sinistra della ragazza: scrive → resta fermo 30 s → cancella → riscrive,
+   in loop.
    Il testo segue il bordo dei capelli (shape-outside nel CSS) e non ci va
    mai sopra. Tutte le lettere sono già al loro posto, nascoste, e si
    accendono una alla volta: così il testo giustificato non si sposta.
-   Il corpo è lo stesso per i 3 blocchi: il più grande che fa stare il
-   blocco più lungo nell'area (calcolato all'avvio e quando cambia la misura).
+   Il corpo è il più grande che fa stare il blocco nell'area, fino al
+   margine in basso e al contorno dei capelli (calcolato all'avvio e quando
+   cambia la misura; con più blocchi è lo stesso per tutti).
    Si ferma quando il riquadro non è visibile. Con "riduci movimento"
-   i blocchi compaiono interi e cambiano ogni HOLD_STILL_MS.
+   il blocco compare intero, fermo (con più blocchi cambiano ogni
+   HOLD_STILL_MS).
    ========================================================================== */
 (function () {
   'use strict';
 
   var TYPE_MS       = 22;    // tempo per lettera in scrittura
-  var HOLD_MS       = 4000;  // pausa a blocco completo
+  var HOLD_MS       = 30000; // blocco completo fermo sullo schermo (30 s)
   var ERASE_MS      = 700;   // cancellazione (tutto il blocco)
   var GAP_MS        = 400;   // pausa a riquadro vuoto
   var HOLD_STILL_MS = 12000; // "riduci movimento": durata di ogni blocco
@@ -66,7 +69,7 @@
   });
   var cycle = data.reduce(function (sum, d) { return sum + d.total; }, 0);
 
-  /* ---- Corpo comune ai 3 blocchi --------------------------------------- */
+  /* ---- Corpo: il più grande che sta nell'area ------------------------- */
   function fits() {
     var limit = area.getBoundingClientRect().height;
     return data.every(function (d) {
@@ -76,7 +79,7 @@
   }
 
   function fitText() {
-    var lo = 0.5, hi = 1.6;
+    var lo = 0.5, hi = 3;   // × 20 pt
     for (var i = 0; i < 12; i++) {
       var mid = (lo + hi) / 2;
       area.style.setProperty('--usage-fit', mid.toFixed(4));
@@ -165,7 +168,7 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitText);
 
   if (reduce) {
-    // blocchi interi, senza battitura, che cambiano ogni HOLD_STILL_MS
+    // blocchi interi, senza battitura (con più blocchi cambiano ogni HOLD_STILL_MS)
     var index = 0;
     var showStill = function () {
       setBlock(data[index]);
@@ -174,7 +177,7 @@
     };
     showStill();
     fitText();
-    setInterval(showStill, HOLD_STILL_MS);
+    if (data.length > 1) setInterval(showStill, HOLD_STILL_MS);
     return;
   }
 
