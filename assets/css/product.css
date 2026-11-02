@@ -1,13 +1,16 @@
 /* ==========================================================================
    WILD COLOR – Pagina Hair Color Cream
-   Un solo riquadro verticale (pagina 836 × 1130 pt del PDF
-   "Hair color page website exp assets", 2 novembre 2026), largo quanto il
-   contenitore del sito (max 1200 px). Livelli, dal basso verso l'alto:
+   Un solo riquadro bianco largo quanto il contenitore del sito (max 1200 px):
+     - in cima la fascia .hc-intro (titolo "Discover our 5 coloring lines" +
+       invito "Select a line for more info"), aggiunta sopra la pagina del PDF
+     - sotto la pagina 836 × 1130 pt del PDF "Hair color page website exp assets"
+       (2 novembre 2026), .hc-sheet. Livelli, dal basso verso l'alto:
      1. fondo: foto delle ragazze con le cornici + punti elenco
      2. punti elenco che lampeggiano uno alla volta (strisce bianche sopra il fondo)
         e scritta WILDCOLOR: cambia colore e ogni 10 s esce a destra e rientra da sinistra
      3. tubetti sulla mensola di vetro (davanti alla scritta)
-     4. 5 pulsanti delle famiglie → aprono la finestra informativa
+     4. 5 pulsanti delle famiglie → aprono la finestra informativa;
+        lampeggiano uno alla volta (nero, scritta bianca) dall'alto in basso
      5. testo a macchina da scrivere nello spazio bianco centrale
    Tutte le posizioni sono in % del riquadro, misurate sul PDF.
    ========================================================================== */
@@ -24,6 +27,13 @@
   font-family: "WC Helvetica Thin";
   src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
   font-weight: 700;
+  font-style: normal;
+}
+/* Helvetica Neue UltraLight: lo stesso carattere delle scritte dei pulsanti */
+@font-face {
+  font-family: "WC Helvetica UltraLight";
+  src: local("HelveticaNeue-UltraLight"), local("Helvetica Neue UltraLight");
+  font-weight: 100;
   font-style: normal;
 }
 
@@ -57,11 +67,78 @@
   --hc-ink: #1d1d1b;   /* nero dei testi e delle cornici nel PDF */
 }
 
-/* Riquadro ------------------------------------------------------------------ */
+/* Riquadro ------------------------------------------------------------------
+   .hc-panel tiene insieme la fascia del titolo e la pagina: un unico blocco bianco. */
+.hc-panel {
+  width: 100%;
+  margin: 0 auto;
+  container-type: inline-size;      /* le misure in cqw della fascia seguono la larghezza del riquadro */
+  background: #fff;
+}
+
+/* Fascia in cima: titolo + invito a scegliere una linea + freccia "PUSH".
+   Misure in pt della pagina (1 pt = 100/836,22 cqw = 0,11959cqw).
+   Lo spazio bianco tra il bordo in alto e il titolo è uguale a quello tra la
+   punta della freccia e i pulsanti (circa 25 pt, misurati sulle lettere).
+   La freccia (55,5 × 26 pt) scende nel margine bianco in cima alla pagina del PDF
+   (le cornici partono 39,2 pt sotto) grazie al margine inferiore negativo.
+   Sul telefono i corpi non scendono sotto una misura leggibile: valori a parte. */
+.hc-intro {
+  position: relative;
+  z-index: 1;                       /* sopra il margine bianco della pagina */
+  margin-bottom: -1.722cqw;         /* −14,4 pt */
+  padding: 2.463cqw 3cqw 0;         /* 20,6 pt sopra */
+  text-align: center;
+}
+
+.hc-intro__title {
+  margin: 0;
+  color: var(--hc-ink);
+  font-family: "WC Helvetica UltraLight", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: max(17px, 3.983cqw);          /* 33,3 pt */
+  line-height: 1.1;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+/* stesso stile della riga arancio sotto il titolo delle schede */
+.hc-intro__hint {
+  margin: .5em 0 0;
+  color: var(--c-accent);
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: max(10px, 1.439cqw);          /* 12 pt */
+  line-height: 1.2;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* freccia arancio con "PUSH" che lampeggia, centrata sotto l'invito */
+.hc-intro__push {
+  display: block;
+  width: max(44px, 6.637cqw);       /* 55,5 pt */
+  height: auto;
+  margin: max(4px, .664cqw) auto 0; /* 5,5 pt */
+  animation: hc-push-blink 1.4s ease-in-out infinite;
+}
+.hc-intro__push polygon { fill: var(--c-accent); }
+.hc-intro__push text {
+  fill: #fff;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 9px;                   /* unità del disegno (viewBox 60 × 28) */
+  letter-spacing: 1px;
+}
+
+@keyframes hc-push-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .2; }
+}
+
 .hc-sheet {
   position: relative;
   width: 100%;
-  margin: 0 auto;
   aspect-ratio: 836.22 / 1130.06;
   container-type: inline-size;    /* il testo si misura sulla larghezza del riquadro */
   overflow: hidden;               /* la scritta che scorre esce dal riquadro */
@@ -174,7 +251,13 @@
 
 /* Pulsanti delle 5 famiglie ---------------------------------------------------
    Cornice + scritta come nel PDF (x 343–814 pt, 75 pt di altezza ciascuno).
-   Al passaggio del mouse si "accendono": fondo nero, scritta e cornice bianche. */
+   Al passaggio del mouse si "accendono": fondo nero, scritta e cornice bianche.
+   Per far capire che si possono premere, si accendono da soli uno alla volta,
+   dall'alto in basso: 3 lampeggi da 1,4 s ciascuno (4,2 s), giro di 21 s,
+   stesso ritmo e in fase con i punti elenco. Col mouse sopra, col focus o a
+   scheda aperta il pulsante resta acceso fisso: si usa !important (che vince
+   sull'animazione) invece di togliere l'animazione, perché toglierla e rimetterla
+   la farebbe ripartire da zero e il pulsante uscirebbe dalla sequenza. */
 .hc-families {
   margin: 0;
   padding: 0;
@@ -188,6 +271,7 @@
   height: 6.604%;
   background-color: transparent;
   transition: background-color .25s var(--ease);
+  animation: hc-family-blink 21s ease-in-out infinite;
   -webkit-tap-highlight-color: transparent;
 }
 .hc-family--1 { top: 3.469%; }
@@ -200,15 +284,38 @@
   width: 100%;
   height: 100%;
   transition: filter .25s var(--ease);
+  animation: hc-family-blink-img 21s ease-in-out infinite;
+}
+
+/* uno alla volta, dall'alto in basso */
+.hc-family--2,
+.hc-family--2 .hc-family__img { animation-delay: 4.2s; }
+.hc-family--3,
+.hc-family--3 .hc-family__img { animation-delay: 8.4s; }
+.hc-family--4,
+.hc-family--4 .hc-family__img { animation-delay: 12.6s; }
+.hc-family--5,
+.hc-family--5 .hc-family__img { animation-delay: 16.8s; }
+
+/* 3 lampeggi nei primi 4,2 s (20%), poi spento fino al giro successivo */
+@keyframes hc-family-blink {
+  0%, 20%, 100% { background-color: transparent; }
+  3.333%, 10%, 16.667% { background-color: var(--hc-ink); }
+  6.667%, 13.333% { background-color: transparent; }
+}
+@keyframes hc-family-blink-img {
+  0%, 20%, 100% { filter: invert(0); }
+  3.333%, 10%, 16.667% { filter: invert(1); }
+  6.667%, 13.333% { filter: invert(0); }
 }
 
 .hc-family:hover,
 .hc-family:focus-visible,
-.hc-family[aria-expanded="true"] { background-color: var(--hc-ink); }
+.hc-family[aria-expanded="true"] { background-color: var(--hc-ink) !important; }
 
 .hc-family:hover .hc-family__img,
 .hc-family:focus-visible .hc-family__img,
-.hc-family[aria-expanded="true"] .hc-family__img { filter: invert(1); }
+.hc-family[aria-expanded="true"] .hc-family__img { filter: invert(1) !important; }
 
 .hc-family:focus-visible {
   outline: 2px solid var(--c-accent);
@@ -429,13 +536,19 @@
   .fam-box__card { padding: 24px 36px 26px; aspect-ratio: auto; height: 100%; }   /* telefono: tutta l'altezza disponibile */
   .fam-box__name { font-size: 22px; }
   .fam-box__nav { width: 34px; }
-  .dc-sheet { text-align: left; }   /* colonna stretta: giustificato lascerebbe buchi tra le parole */
+  .dc-sheet { text-align: left; }
+  /* sul telefono titolo, invito e freccia hanno una misura minima:
+     spazio sopra il titolo = spazio tra la punta della freccia e i pulsanti */
+  .hc-intro { padding-top: 17px; margin-bottom: 1px; }   /* colonna stretta: giustificato lascerebbe buchi tra le parole */
 }
 
 /* "Riduci movimento": scritta ferma sul primo colore, testo senza battitura */
 @media (prefers-reduced-motion: reduce) {
   .hc-logo,
   .hc-logo__shape,
-  .hc-bullets-blink { animation: none; }
+  .hc-bullets-blink,
+  .hc-family,
+  .hc-family__img,
+  .hc-intro__push { animation: none; }
   .typewriter__text::after { display: none; }
 }
