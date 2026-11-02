@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wild Color Hair Color Cream – Wild Color</title>
-  <meta name="description" content="Wild Color™ hair color cream enriched with jojoba, olive and argan oil: permanent, ammonia free, all free and direct colors. 180 ml maxi size, covers 100% of grey hair.">
+  <meta name="description" content="Wild Color™ hair color cream enriched with jojoba, olive and argan oil: permanent, ammonia free, all free, acid and direct colors. 180 ml maxi size, covers 100% of grey hair.">
   <meta name="theme-color" content="#222222">
 
   <!-- Font: Roboto (stesso carattere del sito di partenza); 100 = ripiego di Helvetica Neue Thin -->
@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/product.css?v=20261029">
+  <link rel="stylesheet" href="assets/css/product.css?v=20261102e">
 </head>
 <body class="page-product">
 
@@ -92,87 +92,126 @@
 
   <!-- ============================================================
        CONTENUTO: WILD COLOR HAIR COLOR CREAM
-       Tavole dalla brochure Wild Color 2026 (pagine 4 e 5).
        ============================================================ -->
   <main class="site-main product" id="main">
     <h1 class="visually-hidden">Wild Color Hair Color Cream</h1>
 
-    <!-- Pagina 4: Color permanent, ammonia free, all free & acid color -->
-    <section class="product-sheet product-sheet--families" aria-labelledby="sheet-permanent-title">
-      <h2 class="visually-hidden" id="sheet-permanent-title">Color permanent, ammonia free, all free &amp; acid color</h2>
-      <img class="product-sheet__img"
-           src="assets/img/products/hair-color-cream/page-4-1200.webp?v=20261028b"
-           srcset="assets/img/products/hair-color-cream/page-4-1200.webp?v=20261028b 1200w, assets/img/products/hair-color-cream/page-4-2400.webp?v=20261028b 2400w"
-           sizes="(max-width: 1248px) calc(100vw - 48px), 1200px"
-           width="2400" height="1697" fetchpriority="high"
-           alt="Wild Color – Color permanent, ammonia free, all free &amp; acid color. 3 coloring lines, perfect for any need. Maxi size, up to 5 applications. Simple and user-friendly. Not pre-mixed. Covers 100% of grey hair.">
+    <!-- Riquadro unico: pagina 1 del PDF "Hair color page website exp assets" (2 novembre 2026) -->
+    <section class="hc-sheet" aria-labelledby="hc-families-title">
+      <!-- fondo: ragazze con le cornici + punti elenco -->
+      <img class="hc-sheet__bg"
+           src="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261102"
+           srcset="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261102 1200w, assets/img/products/hair-color-cream/sheet-bg-2400.webp?v=20261102 2400w"
+           sizes="(max-width: 600px) calc(100vw - 32px), (max-width: 1248px) calc(100vw - 48px), 1200px"
+           width="2400" height="3244" fetchpriority="high"
+           alt="Three models with blonde, black and copper red hair. 5 coloring lines, perfect for any need. Maxi size, up to 5 applications. Simple and user-friendly. Enriched with jojoba oil, olive oil and argan. Available in a 180 ml size (enough for a minimum of 4 applications).">
 
-      <!-- scritta WILDCOLOR in basso: cambia colore con i colori delle famiglie della color chart -->
-      <div class="product-sheet__logo" aria-hidden="true"></div>
+      <!-- scritta WILDCOLOR: cambia colore con i colori delle famiglie della color chart;
+           ogni 10 s esce scorrendo a destra e rientra da sinistra (passa dietro ai tubetti) -->
+      <div class="hc-logo" aria-hidden="true"><span class="hc-logo__shape"></span></div>
+
+      <!-- punti elenco: lampeggiano uno alla volta, dall'alto in basso, in loop -->
+      <div class="hc-bullets-blink hc-bullets-blink--1" aria-hidden="true"></div>
+      <div class="hc-bullets-blink hc-bullets-blink--2" aria-hidden="true"></div>
+      <div class="hc-bullets-blink hc-bullets-blink--3" aria-hidden="true"></div>
+      <div class="hc-bullets-blink hc-bullets-blink--4" aria-hidden="true"></div>
+      <div class="hc-bullets-blink hc-bullets-blink--5" aria-hidden="true"></div>
+
+      <!-- tubetti sulla mensola di vetro, davanti alla scritta -->
+      <img class="hc-sheet__tubes"
+           src="assets/img/products/hair-color-cream/tubes.webp?v=20261102b"
+           width="1376" height="768" loading="lazy" decoding="async"
+           alt="Wild Color hair color cream tubes and boxes with rainbow color on a glass shelf.">
+
+      <!-- 5 famiglie: ogni pulsante apre la sua scheda informativa -->
+      <h2 class="visually-hidden" id="hc-families-title">Wild Color coloring lines</h2>
+      <ul class="hc-families">
+        <li><button class="hc-family hc-family--1" type="button" data-family="permanent" data-title="Color Permanent" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-permanent.webp?v=20261102" width="1351" height="215" alt="Color Permanent">
+        </button></li>
+        <li><button class="hc-family hc-family--2" type="button" data-family="ammonia-free" data-title="Ammonia Free" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-ammonia-free.webp?v=20261102" width="1351" height="215" alt="Ammonia Free">
+        </button></li>
+        <li><button class="hc-family hc-family--3" type="button" data-family="all-free" data-title="All Free" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-all-free.webp?v=20261102" width="1351" height="215" alt="All Free">
+        </button></li>
+        <li><button class="hc-family hc-family--4" type="button" data-family="acid-color" data-title="Acid Color" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-acid-color.webp?v=20261102" width="1351" height="215" alt="Acid Color">
+        </button></li>
+        <li><button class="hc-family hc-family--5" type="button" data-family="direct-color" data-title="Direct Color" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-direct-color.webp?v=20261102" width="1351" height="215" alt="Direct Color">
+        </button></li>
+      </ul>
 
       <!-- testo vero (letto da Google e dai lettori di schermo) -->
-      <ul class="visually-hidden" id="tw-permanent" data-typewriter-lines>
-          <li>Wild Color™ is a coloring cream enriched with jojoba oil, olive oil and argan oil.</li>
-          <li>It is available in a 180 ml size (enough for a minimum of 4 applications)</li>
-          <li>and offers a wide range of colors:</li>
-          <li>Among the ammonia colors we include:</li>
-          <li>10 series of basic natural colors, which is unique in the world,</li>
-          <li>69 fashion colors and 10 super lightening colors.</li>
-          <li>33 ammonia-free colors.</li>
-          <li>4 ammonia-free soft toners.</li>
-          <li>15 all-free colors.</li>
-          <li>18 direct colors.</li>
-          <li>6 colors specifically studied for men.</li>
-          <li>10 colors including intensifiers, correctors and toners.</li>
+      <ul class="visually-hidden">
+        <li>5 Coloring lines, perfect for any need.</li>
+        <li>Maxi size, up to 5 applications.</li>
+        <li>Simple and user-friendly.</li>
+        <li>Enriched with Jojoba Oil, Olive Oil and Argan.</li>
+        <li>Available in a 180 ml size (enough for a minimum of 4 applications)</li>
       </ul>
-      <!-- stesso testo, scritto a macchina sopra lo spazio bianco -->
-      <p class="typewriter typewriter--permanent" data-source="tw-permanent" aria-hidden="true"><span class="typewriter__text"></span></p>
-    </section>
-
-    <!-- Pagina 5: Direct color -->
-    <section class="product-sheet product-sheet--dark product-sheet--direct" aria-labelledby="sheet-direct-title">
-      <h2 class="visually-hidden" id="sheet-direct-title">Direct color</h2>
-      <img class="product-sheet__img"
-           src="assets/img/products/hair-color-cream/page-5-1200.webp?v=20261029"
-           srcset="assets/img/products/hair-color-cream/page-5-1200.webp?v=20261029 1200w, assets/img/products/hair-color-cream/page-5-2400.webp?v=20261029 2400w"
-           sizes="(max-width: 1248px) calc(100vw - 48px), 1200px"
-           width="2400" height="1697" loading="lazy" decoding="async"
-           alt="Wild Color Direct Color: tube and box, four models with yellow, red, blue and green hair. Maxi size, up to 5 applications. Simple and user-friendly. Create all the desired shades of color. Pure direct pigments. Up to 20 washes for bold colors. Up to 7/8 washes for mild or natural colors.">
-
-      <!-- scritta DIRECT COLOR in alto: cambia colore come WILDCOLOR, sfasata -->
-      <div class="product-sheet__title" aria-hidden="true"></div>
-
-      <!-- testo vero (letto da Google e dai lettori di schermo) -->
-      <ul class="visually-hidden" id="tw-direct" data-typewriter-lines>
-        <li><strong>Wild Color™ Direct Color</strong> is available in 18 great colors:</li>
-        <li><strong>Violet, Red, Orange, Yellow, Green, Blue,</strong></li>
-        <li><strong>Anthracite, Steel, Ice, Bordeaux, Fuchsia, Aqua,</strong></li>
-        <li><strong>Rose, Mint, Lavender, Turquoise, Peach and Clear.</strong></li>
-        <li>For bright, vivid colors, lighten hair with Wild Color™ Plex Nine+ Bleaching Powder</li>
-        <li>or Wild Color™ Blue Lightening Cream up to the recommended level:</li>
-        <li>Blue, Violet, Steel, Ice, Fuchsia, Rose, Mint, Lavender, Turquoise, Peach and Clear:</li>
-        <li>pre-lighten to a level 9 or 10.</li>
-        <li>Recommended application time: up to 30 minutes.</li>
-        <li>Green, Orange, Red, Yellow, Anthracite, Bordeaux and Aqua:</li>
-        <li>pre-lighten to a level 7 or 8.</li>
-        <li>Recommended application time: up to 30 minutes.</li>
-        <li>The Clear color can be used as a “glaze effect” polisher,</li>
-        <li>or to create different shades of pastel color,</li>
-        <li>using it in combination with any other color available.</li>
-        <li>Wild Color™ Direct Color must be applied to dry hair, not to the scalp</li>
-        <li>and without mixing with water or oxidizing emulsions.</li>
-        <li><strong>APPLICATION:</strong> Shampoo and then dry the hair.</li>
-        <li>Section the hair and saturate each area thoroughly before moving on to the next.</li>
-        <li>Once the recommended application time is over, rinse thoroughly with lukewarm water.</li>
-        <li>Do not use any type of shampoo.</li>
-        <li>Next, move on to styling using any products you like.</li>
-        <li>We recommend avoiding straighteners and similar tools</li>
-        <li>immediately after applying Wild Color™ Direct Color to preserve color hold.</li>
+      <ul class="visually-hidden" id="tw-colors" data-typewriter-lines>
+        <li>Wild Color™ offers a wide range of colors:</li>
+        <li>Among the ammonia colors we include:</li>
+        <li>10 series of basic natural colors, which is unique in the world,</li>
+        <li>69 fashion colors and 10 super lightening colors.</li>
+        <li>33 ammonia-free colors.</li>
+        <li>4 ammonia-free soft toners.</li>
+        <li>15 all-free colors.</li>
+        <li>18 direct colors.</li>
+        <li>6 colors specifically studied for men.</li>
+        <li>10 colors including intensifiers, correctors and toners.</li>
       </ul>
-      <!-- stesso testo, scritto a macchina sopra la foto -->
-      <p class="typewriter typewriter--direct" data-source="tw-direct" aria-hidden="true"><span class="typewriter__text"></span></p>
+      <!-- stesso testo, scritto a macchina nello spazio bianco tra pulsanti e punti elenco -->
+      <p class="typewriter" data-source="tw-colors" aria-hidden="true"><span class="typewriter__text"></span></p>
     </section>
   </main>
+
+  <!-- ============================================================
+       FINESTRA INFORMATIVA DELLE FAMIGLIE
+       Grafica coerente con la finestra delle ciocche della Color Chart.
+       Un pannello per famiglia (data-family = data-family del pulsante).
+       ============================================================ -->
+  <div class="fam-box" id="fam-box" role="dialog" aria-modal="true" aria-labelledby="fam-box-name" hidden>
+    <div class="fam-box__card">
+      <button class="fam-box__close" type="button" aria-label="Close">&times;</button>
+      <p class="fam-box__name" id="fam-box-name"></p>
+      <p class="fam-box__product">Wild Color™ Hair Color Cream</p>
+      <div class="fam-box__body">
+        <section class="fam-box__panel" data-family="permanent" hidden>
+          <!-- contenuto Color Permanent: da definire -->
+          <p class="fam-box__soon">Information coming soon</p>
+        </section>
+        <section class="fam-box__panel" data-family="ammonia-free" hidden>
+          <!-- contenuto Ammonia Free: da definire -->
+          <p class="fam-box__soon">Information coming soon</p>
+        </section>
+        <section class="fam-box__panel" data-family="all-free" hidden>
+          <!-- contenuto All Free: da definire -->
+          <p class="fam-box__soon">Information coming soon</p>
+        </section>
+        <section class="fam-box__panel" data-family="acid-color" hidden>
+          <!-- contenuto Acid Color: da definire -->
+          <p class="fam-box__soon">Information coming soon</p>
+        </section>
+        <section class="fam-box__panel" data-family="direct-color" hidden>
+          <!-- dal PDF "direct color box" -->
+          <div class="dc-sheet">
+            <p class="dc-sheet__text"><strong>Wild Color™ Direct Color</strong> is available in 18 great colors: <strong>Violet, Red, Orange, Yellow, Green, Blue, Anthracite, Steel, Ice, Bordeaux, Fuchsia, Aqua, Rose, Mint, Lavender, Turquoise, Peach and Clear.</strong></p>
+            <p class="dc-sheet__text">For bright, vivid colors, lighten hair with Wild Color™ Plex Nine+ Bleaching Powder or Wild Color™ Blue Lightening Cream up to the recommended level: Blue, Violet, Steel, Ice, Fuchsia, Rose, Mint, Lavender, Turquoise, Peach and Clear: pre-lighten to a level 9 or 10. Recommended application time: up to 30 minutes. Green, Orange, Red, Yellow, Anthracite, Bordeaux and Aqua: pre-lighten to a level 7 or 8. Recommended application time: up to 30 minutes. The Clear color can be used as a “glaze effect” polisher, or to create different shades of pastel color, using it in combination with any other color available. Wild Color™ Direct Color must be applied to dry hair, not to the scalp and without mixing with water or oxidizing emulsions.<br>
+              <strong>APPLICATION:</strong> Shampoo and then dry the hair. Section the hair and saturate each area thoroughly before moving on to the next. Once the recommended application time is over, rinse thoroughly with lukewarm water. Do not use any type of shampoo. Next, move on to styling using any products you like. We recommend avoiding straighteners and similar tools immediately after applying Wild Color™ Direct Color to preserve color hold.</p>
+            <img class="dc-sheet__photo"
+                 src="assets/img/products/hair-color-cream/direct-color-girls.webp?v=20261102b"
+                 width="1271" height="757" loading="lazy" decoding="async"
+                 alt="Four laughing models with yellow, red, blue and green hair holding Wild Color Direct Color tubes.">
+          </div>
+        </section>
+      </div>
+      <button class="fam-box__nav fam-box__nav--prev" type="button" aria-label="Previous coloring line"></button>
+      <button class="fam-box__nav fam-box__nav--next" type="button" aria-label="Next coloring line"></button>
+    </div>
+  </div>
 
   <!-- ============================================================
        FOOTER
@@ -195,5 +234,6 @@
 
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/typewriter.js?v=20261028b" defer></script>
+  <script src="assets/js/hair-color-cream.js?v=20261102b" defer></script>
 </body>
 </html>
