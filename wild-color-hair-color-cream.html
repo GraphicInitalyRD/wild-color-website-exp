@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/product.css?v=20261102i">
+  <link rel="stylesheet" href="assets/css/product.css?v=20261104b">
 </head>
 <body class="page-product">
 
@@ -102,8 +102,8 @@
         <h2 class="hc-intro__title" id="hc-families-title">Discover our 5 coloring lines</h2>
         <p class="hc-intro__hint">Select a line for more info</p>
         <svg class="hc-intro__push" viewBox="0 0 60 28" aria-hidden="true" focusable="false">
-          <polygon points="0,0 60,0 30,28"/>
-          <text x="30" y="11.5" text-anchor="middle">PUSH</text>
+          <polygon points="1.586,0.625 58.414,0.625 30,27.145"/>
+          <text x="30" y="10.8" text-anchor="middle">CLICK</text>
         </svg>
       </header>
 
@@ -135,7 +135,7 @@
 
         <!-- 5 famiglie: ogni pulsante apre la sua scheda informativa -->
         <ul class="hc-families">
-          <li><button class="hc-family hc-family--1" type="button" data-family="permanent" data-title="Color Permanent" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <li><button class="hc-family hc-family--1" type="button" data-family="permanent" data-title="Color Permanent" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
             <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-permanent.webp?v=20261102" width="1351" height="215" alt="Color Permanent">
           </button></li>
           <li><button class="hc-family hc-family--2" type="button" data-family="ammonia-free" data-title="Ammonia Free" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
@@ -190,8 +190,28 @@
       <p class="fam-box__product">Wild Color™ Hair Color Cream</p>
       <div class="fam-box__body">
         <section class="fam-box__panel" data-family="permanent" hidden>
-          <!-- contenuto Color Permanent: da definire -->
-          <p class="fam-box__soon">Information coming soon</p>
+          <!-- dal PDF "Box pop descritctions hair color lines" (1616 × 1566 pt) -->
+          <div class="ln-sheet">
+            <img class="ln-sheet__bg"
+                 src="assets/img/products/hair-color-cream/line-box-tubes.webp?v=20261104"
+                 width="1376" height="768" loading="lazy" decoding="async" alt="">
+            <img class="ln-sheet__tube ln-sheet__tube--top"
+                 src="assets/img/products/hair-color-cream/line-box-tube-top.webp?v=20261104"
+                 width="537" height="236" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__text">
+              <span class="ln-sheet__wrap" aria-hidden="true"></span>
+              <p>Wild Color™ Permanent Hair Color is the benchmark for professional color: dependable, consistent performance, application after application. Its formula uses ammonia progressively, raising the concentration as shades get lighter, so every shade holds just what it needs to reach the result, with maximum respect for the hair.</p>
+              <p>Expect full, even color from roots to ends and 100% gray coverage, with a finish that is rich, glossy and true to the chosen shade.</p>
+              <p>In the salon, an extensive palette opens up endless combinations for every taste, idea and need. Colorists can tailor each service with precision and count on results that faithfully match previous ones.</p>
+              <p>Permanent Hair Color brings reliability, versatility and color quality together: the essential salon tool, ready to meet every client’s needs.</p>
+            </div>
+            <img class="ln-sheet__tube ln-sheet__tube--bottom"
+                 src="assets/img/products/hair-color-cream/line-box-tube-bottom.webp?v=20261104"
+                 width="598" height="348" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__photo">
+              <!-- immagine della linea Color Permanent: da inserire -->
+            </div>
+          </div>
         </section>
         <section class="fam-box__panel" data-family="ammonia-free" hidden>
           <!-- contenuto Ammonia Free: da definire -->
@@ -230,7 +250,7 @@
     <div class="site-footer__inner">
       <p class="site-footer__company"><strong>Wild</strong> World <strong>Hair</strong> S.r.l.</p>
       <p class="site-footer__info">
-        Via Cirene, 7 – 20135 Milano (MI) – Italy
+        Via Industriale, 18 – 25082 Botticino (BS) – Italy
         <span class="sep" aria-hidden="true">|</span>
         <a href="mailto:info@wildworldhair.com">info@wildworldhair.com</a>
       </p>

@@ -114,7 +114,7 @@
   text-transform: uppercase;
 }
 
-/* freccia arancio con "PUSH" che lampeggia, centrata sotto l'invito */
+/* freccia arancio in contorno con "CLICK" che lampeggia, centrata sotto l'invito */
 .hc-intro__push {
   display: block;
   width: max(44px, 6.637cqw);       /* 55,5 pt */
@@ -122,13 +122,19 @@
   margin: max(4px, .664cqw) auto 0; /* 5,5 pt */
   animation: hc-push-blink 1.4s ease-in-out infinite;
 }
-.hc-intro__push polygon { fill: var(--c-accent); }
+/* solo contorno arancio, spesso come le cornici dei pulsanti famiglia (1,15 pt) */
+.hc-intro__push polygon {
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 1.25;               /* unità del disegno: 1,15 pt sulla pagina */
+  stroke-linejoin: miter;
+}
 .hc-intro__push text {
-  fill: #fff;
+  fill: var(--c-accent);
   font-family: var(--font);
   font-weight: 700;
-  font-size: 9px;                   /* unità del disegno (viewBox 60 × 28) */
-  letter-spacing: 1px;
+  font-size: 8.5px;                 /* unità del disegno (viewBox 60 × 28); CLICK ha una lettera in più di PUSH */
+  letter-spacing: .6px;
 }
 
 @keyframes hc-push-blink {
@@ -482,6 +488,114 @@
 .dc-sheet__photo {
   width: 100%;
   margin-top: -8cqw;
+}
+
+/* Schede delle 4 linee (Color Permanent, Ammonia Free, All Free, Acid Color) --
+   Dal PDF "Box pop descritctions hair color lines" (1616 × 1566 pt = area
+   contenuto della scheda 808 × 783 px a risoluzione doppia), fondo nero:
+   - in alto la foto del marmo con i due tubetti (nel PDF: x −15,4…1631,4 pt,
+     y −6,7…912,5 pt);
+   - il testo bianco (Helvetica Neue Thin 30,9 pt, interlinea 37,04 pt, a
+     bandiera) da x 272,6 pt, prima linea di base a y 299,1 pt; a destra segue il
+     tubetto in basso grazie a .ln-sheet__wrap (shape-outside);
+   - in basso il nero piatto (da y 912,5 pt) per l'immagine della linea.
+   Misure in cqw = % della larghezza della scheda (1616 pt = 100cqw).
+   Scheda stretta (telefono, schermi bassi): fondo nero piatto, i due tubetti
+   scontornati incorniciano il testo (uno in alto a sinistra, l'altro sotto a
+   destra), poi l'immagine della linea; testo a misura leggibile. */
+.fam-box__panel:has(> .ln-sheet) { container-type: inline-size; }
+
+.ln-sheet {
+  position: relative;
+  aspect-ratio: 1616 / 1566;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  text-align: left;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+.ln-sheet__bg {
+  position: absolute;
+  left: -0.953cqw;                  /* −15,4 / 1616 */
+  top: -0.412cqw;                   /* −6,66 / 1616 */
+  width: 101.906cqw;                /* 1646,8 / 1616 */
+  max-width: none;
+  height: auto;
+}
+
+.ln-sheet__text {
+  position: absolute;
+  left: 16.869cqw;                  /* 272,6 pt */
+  top: 16.658cqw;                   /* 269,2 pt: linea di base a 299,1 pt */
+  width: 66.275cqw;                 /* fino a 1343,6 pt */
+  height: 39.790cqw;                /* fino a 912,2 pt: sopra il nero piatto */
+  font-size: 1.912cqw;              /* 30,9 pt */
+  line-height: 1.1988;              /* 37,04 pt */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.ln-sheet__text p { margin: 0; }
+
+/* tubetti scontornati: solo nella scheda stretta */
+.ln-sheet__tube { display: none; }
+
+/* sagoma del tubetto in basso a destra (24 pt di aria dal bordo): il testo
+   va a capo seguendola */
+.ln-sheet__wrap {
+  float: right;
+  width: 100%;
+  height: 100%;
+  shape-outside: polygon(100% 0, 99.93% 40.86%, 95.46% 50.16%, 88.20% 57.60%,
+                         81.49% 61.34%, 78.14% 68.77%, 71.44% 76.22%,
+                         64.51% 78.09%, 59.15% 81.80%, 55.80% 84.59%,
+                         55.80% 100%, 100% 100%);
+}
+
+/* spazio per l'immagine della linea (nero piatto, da y 912,5 pt) */
+.ln-sheet__photo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 41.734%;                  /* 653,5 / 1566 */
+}
+.ln-sheet__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@container (max-width: 620px) {
+  .ln-sheet { aspect-ratio: auto; }
+  .ln-sheet__bg { display: none; }
+  .ln-sheet__tube {
+    display: block;
+    max-width: none;
+    height: auto;
+  }
+  .ln-sheet__tube--top { width: 66%; }
+  .ln-sheet__tube--bottom {
+    width: 70%;
+    margin: 6px 0 0 auto;
+  }
+  .ln-sheet__text {
+    position: static;
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .ln-sheet__text p + p { margin-top: .6em; }
+  .ln-sheet__wrap { display: none; }
+  .ln-sheet__photo {
+    position: static;
+    height: auto;
+    aspect-ratio: 1616 / 653.5;
+  }
 }
 
 .fam-box__soon {
