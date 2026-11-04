@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/product.css?v=20261104b">
+  <link rel="stylesheet" href="assets/css/product.css?v=20261104d">
 </head>
 <body class="page-product">
 
@@ -108,13 +108,27 @@
       </header>
 
       <div class="hc-sheet">
-        <!-- fondo: ragazze con le cornici + punti elenco -->
+        <!-- fondo: punti elenco (le ragazze sono livelli a parte, sotto) -->
         <img class="hc-sheet__bg"
-             src="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261102"
-             srcset="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261102 1200w, assets/img/products/hair-color-cream/sheet-bg-2400.webp?v=20261102 2400w"
+             src="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261104"
+             srcset="assets/img/products/hair-color-cream/sheet-bg-1200.webp?v=20261104 1200w, assets/img/products/hair-color-cream/sheet-bg-2400.webp?v=20261104 2400w"
              sizes="(max-width: 600px) calc(100vw - 32px), (max-width: 1248px) calc(100vw - 48px), 1200px"
              width="2400" height="3244" fetchpriority="high"
-             alt="Three models with blonde, black and copper red hair. 5 coloring lines, perfect for any need. Maxi size, up to 5 applications. Simple and user-friendly. Enriched with jojoba oil, olive oil and argan. Available in a 180 ml size (enough for a minimum of 4 applications).">
+             alt="5 coloring lines, perfect for any need. Maxi size, up to 5 applications. Simple and user-friendly. Enriched with jojoba oil, olive oil and argan. Available in a 180 ml size (enough for a minimum of 4 applications).">
+
+        <!-- le 3 ragazze nei riquadri: ogni 2,5 s si rimescolano in volo (hc-girls.js);
+             data-w / data-h = riquadro in pt (centro del filo), data-s = spessore del filo -->
+        <div class="hc-girls">
+          <img class="hc-girl hc-girl--blonde" src="assets/img/products/hair-color-cream/girl-blonde.webp?v=20261104"
+               width="464" height="496" decoding="async" data-w="153.332" data-h="163.761" data-s="0.955"
+               alt="Model with long straight blonde hair">
+          <img class="hc-girl hc-girl--black" src="assets/img/products/hair-color-cream/girl-black.webp?v=20261104"
+               width="715" height="480" decoding="async" data-w="237.038" data-h="158.541" data-s="1.16"
+               alt="Model with long black hair blowing in the wind">
+          <img class="hc-girl hc-girl--red" src="assets/img/products/hair-color-cream/girl-red.webp?v=20261104"
+               width="598" height="433" decoding="async" data-w="197.994" data-h="142.968" data-s="0.955"
+               alt="Model with flowing copper red hair">
+        </div>
 
         <!-- scritta WILDCOLOR: cambia colore con i colori delle famiglie della color chart;
              ogni 10 s esce scorrendo a destra e rientra da sinistra (passa dietro ai tubetti) -->
@@ -138,13 +152,13 @@
           <li><button class="hc-family hc-family--1" type="button" data-family="permanent" data-title="Color Permanent" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
             <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-permanent.webp?v=20261102" width="1351" height="215" alt="Color Permanent">
           </button></li>
-          <li><button class="hc-family hc-family--2" type="button" data-family="ammonia-free" data-title="Ammonia Free" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <li><button class="hc-family hc-family--2" type="button" data-family="ammonia-free" data-title="Ammonia Free" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
             <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-ammonia-free.webp?v=20261102" width="1351" height="215" alt="Ammonia Free">
           </button></li>
-          <li><button class="hc-family hc-family--3" type="button" data-family="all-free" data-title="All Free" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <li><button class="hc-family hc-family--3" type="button" data-family="all-free" data-title="All Free" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
             <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-all-free.webp?v=20261102" width="1351" height="215" alt="All Free">
           </button></li>
-          <li><button class="hc-family hc-family--4" type="button" data-family="acid-color" data-title="Acid Color" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
+          <li><button class="hc-family hc-family--4" type="button" data-family="acid-color" data-title="Acid Color" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
             <img class="hc-family__img" src="assets/img/products/hair-color-cream/family-acid-color.webp?v=20261102" width="1351" height="215" alt="Acid Color">
           </button></li>
           <li><button class="hc-family hc-family--5" type="button" data-family="direct-color" data-title="Direct Color" data-theme="dark" aria-haspopup="dialog" aria-expanded="false" aria-controls="fam-box">
@@ -214,16 +228,76 @@
           </div>
         </section>
         <section class="fam-box__panel" data-family="ammonia-free" hidden>
-          <!-- contenuto Ammonia Free: da definire -->
-          <p class="fam-box__soon">Information coming soon</p>
+          <!-- dal PDF "Box pop descritctions hair color lines" (1616 × 1566 pt) -->
+          <div class="ln-sheet">
+            <img class="ln-sheet__bg"
+                 src="assets/img/products/hair-color-cream/line-box-tubes.webp?v=20261104"
+                 width="1376" height="768" loading="lazy" decoding="async" alt="">
+            <img class="ln-sheet__tube ln-sheet__tube--top"
+                 src="assets/img/products/hair-color-cream/line-box-tube-top.webp?v=20261104"
+                 width="537" height="236" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__text">
+              <span class="ln-sheet__wrap" aria-hidden="true"></span>
+              <p>Wild Color™ Ammonia Free is permanent color for those who want a complete, professional result from an ammonia-free formula. The name says it all: traditional hair color, reimagined, with no compromise on performance.</p>
+              <p>Alternative alkalizing agents take the place of ammonia and do the same technical job, preparing the hair fiber so the pigments can work in depth. The outcome matches traditional color, with complete gray coverage.</p>
+              <p>Every pigment in the range has been carefully selected for a wide choice of shades and endless combinations. Colorists can create custom shades, from the most natural to the most sophisticated, and count on consistent, effective results.</p>
+              <p>Wild Color™ Ammonia Free is the ideal answer for salons that want a complete permanent color service: performance, comfort and versatility, together in one product.</p>
+            </div>
+            <img class="ln-sheet__tube ln-sheet__tube--bottom"
+                 src="assets/img/products/hair-color-cream/line-box-tube-bottom.webp?v=20261104"
+                 width="598" height="348" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__photo">
+              <!-- immagine della linea Ammonia Free: da inserire -->
+            </div>
+          </div>
         </section>
         <section class="fam-box__panel" data-family="all-free" hidden>
-          <!-- contenuto All Free: da definire -->
-          <p class="fam-box__soon">Information coming soon</p>
+          <!-- dal PDF "Box pop descritctions hair color lines" (1616 × 1566 pt) -->
+          <div class="ln-sheet">
+            <img class="ln-sheet__bg"
+                 src="assets/img/products/hair-color-cream/line-box-tubes.webp?v=20261104"
+                 width="1376" height="768" loading="lazy" decoding="async" alt="">
+            <img class="ln-sheet__tube ln-sheet__tube--top"
+                 src="assets/img/products/hair-color-cream/line-box-tube-top.webp?v=20261104"
+                 width="537" height="236" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__text">
+              <span class="ln-sheet__wrap" aria-hidden="true"></span>
+              <p>Wild Color™ All Free Hair Color is professional color with the utmost respect for the hair, even the most sensitive. The formula is free from ammonia, parabens, PPD, resorcinol and silicones: a deliberate choice, built for high performance.</p>
+              <p>Specific, high-quality alternative pigments make it possible to leave these ingredients out without losing color quality. Each one is selected through dedicated testing and precise ratios between color components, for top intensity, evenness and shine.</p>
+              <p>Coloring becomes a more pleasant, comfortable experience, for clients and for professionals in the salon every day. Colorists keep full control of the result and work with confidence, even for clients who look closely at what goes into their products.</p>
+              <p>Wild Color™ All Free brings color performance and respect for the hair fiber together: the ideal choice for salons serving increasingly conscious clients.</p>
+            </div>
+            <img class="ln-sheet__tube ln-sheet__tube--bottom"
+                 src="assets/img/products/hair-color-cream/line-box-tube-bottom.webp?v=20261104"
+                 width="598" height="348" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__photo">
+              <!-- immagine della linea All Free: da inserire -->
+            </div>
+          </div>
         </section>
         <section class="fam-box__panel" data-family="acid-color" hidden>
-          <!-- contenuto Acid Color: da definire -->
-          <p class="fam-box__soon">Information coming soon</p>
+          <!-- dal PDF "Box pop descritctions hair color lines" (1616 × 1566 pt) -->
+          <div class="ln-sheet">
+            <img class="ln-sheet__bg"
+                 src="assets/img/products/hair-color-cream/line-box-tubes.webp?v=20261104"
+                 width="1376" height="768" loading="lazy" decoding="async" alt="">
+            <img class="ln-sheet__tube ln-sheet__tube--top"
+                 src="assets/img/products/hair-color-cream/line-box-tube-top.webp?v=20261104"
+                 width="537" height="236" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__text">
+              <span class="ln-sheet__wrap" aria-hidden="true"></span>
+              <p>Wild Color™ Acid Color is a demi-permanent system designed for precise color results that fully respect the integrity of the hair. Its low-alkalinity formula works exclusively with a 2.5-volume oxidizing emulsion, for a controlled oxidative process with no significant cuticle opening and no lightening.</p>
+              <p>The natural base stays untouched. Color deposits selectively, mainly on the more porous, pre-lightened areas, so toning happens exactly where it is needed. The result is even and predictable, with no banding or spotting: perfect for bleached blondes, balayage and advanced lightening.</p>
+              <p>In the salon it is versatile and reliable, even straight at the backwash, and the mixing ratio lets colorists tune the intensity to every client.</p>
+              <p>The essential tool for modern toning: color performance, respect for the hair fiber and natural-looking results, in perfect balance.</p>
+            </div>
+            <img class="ln-sheet__tube ln-sheet__tube--bottom"
+                 src="assets/img/products/hair-color-cream/line-box-tube-bottom.webp?v=20261104"
+                 width="598" height="348" loading="lazy" decoding="async" alt="">
+            <div class="ln-sheet__photo">
+              <!-- immagine della linea Acid Color: da inserire -->
+            </div>
+          </div>
         </section>
         <section class="fam-box__panel" data-family="direct-color" hidden>
           <!-- dal PDF "direct color box" -->
@@ -265,5 +339,6 @@
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/typewriter.js?v=20261028b" defer></script>
   <script src="assets/js/hair-color-cream.js?v=20261102b" defer></script>
+  <script src="assets/js/hc-girls.js?v=20261104" defer></script>
 </body>
 </html>

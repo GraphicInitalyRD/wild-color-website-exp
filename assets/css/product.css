@@ -114,13 +114,17 @@
   text-transform: uppercase;
 }
 
-/* freccia arancio in contorno con "CLICK" che lampeggia, centrata sotto l'invito */
+/* freccia arancio in contorno con "CLICK", centrata sotto l'invito: lampeggia e
+   scende verso i pulsanti famiglia (si ferma prima del primo: 62% della propria
+   altezza = 22 px su computer, 13 px su telefono; spazio libero 34 / 18 px),
+   poi risale. Stesso ritmo del lampeggio, piena quando è giù. */
 .hc-intro__push {
   display: block;
   width: max(44px, 6.637cqw);       /* 55,5 pt */
   height: auto;
   margin: max(4px, .664cqw) auto 0; /* 5,5 pt */
-  animation: hc-push-blink 1.4s ease-in-out infinite;
+  animation: hc-push-blink 1.4s ease-in-out infinite,
+             hc-push-nudge 1.4s ease-in-out -.7s infinite;
 }
 /* solo contorno arancio, spesso come le cornici dei pulsanti famiglia (1,15 pt) */
 .hc-intro__push polygon {
@@ -141,6 +145,10 @@
   0%, 100% { opacity: 1; }
   50%      { opacity: .2; }
 }
+@keyframes hc-push-nudge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(62%); }
+}
 
 .hc-sheet {
   position: relative;
@@ -155,6 +163,27 @@
   width: 100%;
   height: 100%;
 }
+
+/* Le 3 ragazze nei riquadri (dal PDF "girls square haircolor page", stessa
+   scala della pagina). Ogni immagine comprende già il suo filo. Posizione di
+   partenza come nel PDF; poi hc-girls.js le rimescola in volo.
+   multiply: il bianco delle foto è trasparente, così dove si sovrappongono
+   si vedono i fili e le foto di sotto, come nell'impaginato. */
+.hc-girls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hc-girl {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+.hc-girl--blonde { left: 3.172%; top: 3.396%;  width: 18.451%; }
+.hc-girl--black  { left: 9.473%; top: 15.612%; width: 28.485%; }
+.hc-girl--red    { left: 3.172%; top: 28.108%; width: 23.791%; }
 
 /* Scritta WILDCOLOR ----------------------------------------------------------
    Forma vettoriale presa dal PDF (SVG incorporato: nitida a ogni dimensione
