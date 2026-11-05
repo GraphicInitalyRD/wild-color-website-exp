@@ -1,0 +1,237 @@
+/* ==========================================================================
+   WILDCARE – Pagina Finishing Products
+   Un unico riquadro dal PDF "Finishing product Wildcare page assets"
+   (3 pagine 1200 × 1600 pt, una per prodotto):
+     1) Soft Fix Hair Spray      – azzurro #61c2e1 – 2 quadrati grandi
+     2) Performance Mousse       – giallo  #ffed00 – 3 quadrati grandi
+     3) Strong Fix Hair Spray    – rosso   #d22128 – 4 quadrati grandi
+   Sequenza in loop (finishing.js): onda dei quadratini della cornice che
+   passano al colore successivo + cambio foto con onda di quadrati (come la
+   pagina Bleach) + testo cancellato → quadrati grandi cancellati e ribattuti
+   uno alla volta → testo riscritto a macchina → fermo 3 s.
+   In alto, fisse, le scritte FINISHING PRODUCTS e COMING SOON (che lampeggia),
+   dal PDF "Finishing product titles top" (stessa pagina, stesse posizioni).
+   Tutte le posizioni sono in % della pagina del PDF (.fin-stage, 1200 × 1600 pt):
+   su computer il riquadro è la pagina intera; sul telefono (riquadro stretto)
+   si tagliano i margini neri ai lati e un po' in alto, così foto e testo sono più grandi.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure: quella installata sul dispositivo
+   (Mac, iPhone, iPad). Dove manca si passa a Roboto (Google Fonts). */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Thin"), local("Helvetica Neue Thin");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.fin-wrap {
+  container-type: inline-size;     /* per il taglio su schermo stretto */
+}
+
+.fin-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1200 / 1600;
+  overflow: hidden;
+  background: #000;
+}
+
+/* la pagina del PDF: tutte le misure interne sono in % di questa */
+.fin-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;     /* 1 cqw = 12 pt della pagina */
+}
+
+/* Riquadro stretto (telefono): si mostra solo x 196–1016 pt, y 40–1600 pt
+   (il titolo FINISHING PRODUCTS parte da y 58 pt) */
+@container (max-width: 620px) {
+  .fin-sheet  { aspect-ratio: 820 / 1560; }
+  .fin-stage  {
+    left: -23.9024%;               /* −196 / 820 */
+    top: -2.5641%;                 /* −40 / 1560 */
+    width: 146.3415%;              /* 1200 / 820 */
+    height: 102.5641%;             /* 1600 / 1560 */
+  }
+}
+
+/* Scritte in alto (Helvetica Neue UltraLight bianca, immagini dal PDF con
+   trasparenza; il riquadro di ogni immagine ha 1 pt di margine attorno alle lettere) */
+.fin-title,
+.fin-soon {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+/* FINISHING PRODUCTS: x 209–993 pt, y 58–123 pt (83,9 pt) */
+.fin-title {
+  left: 17.4167%;
+  top: 3.625%;
+  width: 65.3333%;
+}
+/* COMING SOON: x 602–992 pt, y 184–232 pt (61 pt), allineata a destra
+   con la cornice, alla stessa altezza dei quadrati grandi; lampeggia */
+.fin-soon {
+  left: 50.1667%;
+  top: 11.5%;
+  width: 32.5%;
+  animation: fin-soon-blink 1.4s ease-in-out infinite;
+}
+@keyframes fin-soon-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .15; }
+}
+
+/* Foto e onda di quadrati: occupano il rettangolo esterno della cornice
+   (x 207,08–992,94 pt, y 246,52–1118,85 pt); la cornice sta sopra */
+.fin-slide,
+.fin-wave,
+.fin-frame {
+  position: absolute;
+  left: 17.2567%;
+  top: 15.4075%;
+  width: 65.4883%;
+  height: 54.5206%;
+}
+
+.fin-slide {
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+}
+.fin-slide.is-active { opacity: 1; }
+
+/* Onda di quadrati per il cambio foto (come la pagina Bleach): ogni quadrato
+   mostra il suo pezzo della foto nuova e cresce dal centro; i ritardi sono
+   impostati da finishing.js */
+.fin-wave { pointer-events: none; }
+.fin-wave__tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  transform: scale(0);
+  transition: transform .52s cubic-bezier(.2, .7, .2, 1);
+}
+.fin-wave.is-on .fin-wave__tile { transform: scale(1.02); }
+.fin-wave.is-reset .fin-wave__tile { transition: none; }
+
+/* Cornice: 288 quadratini (lato 16,93 pt, griglia 36 × 40, due file),
+   creati da finishing.js. Durante l'onda ogni quadratino si ingrandisce
+   e passa dal colore di prima (--fin-from) a quello nuovo (--fin-to). */
+.fin-frame {
+  --fin-frame: #61c2e1;
+  --fin-from: #61c2e1;
+  --fin-to: #61c2e1;
+  pointer-events: none;
+}
+.fin-sq {
+  position: absolute;
+  width: 2.1541%;                  /* 16,928 / 785,86 */
+  height: 1.9405%;                 /* 16,928 / 872,33 */
+  background: var(--fin-frame);
+}
+.fin-frame.is-waving .fin-sq {
+  animation: fin-sq-wave .6s ease-in-out both;
+  animation-delay: calc(var(--i) * 11ms);
+}
+/* il colore cambia di colpo quando il quadratino è al massimo (niente tinte di mezzo) */
+@keyframes fin-sq-wave {
+  0%   { transform: scale(1);   background-color: var(--fin-from); }
+  37%  { background-color: var(--fin-from); }
+  40%  { transform: scale(1.5); background-color: var(--fin-to); }
+  100% { transform: scale(1);   background-color: var(--fin-to); }
+}
+
+/* Quadrati grandi sopra la cornice (57,63 pt; y 173,94 pt):
+   da 2 a 4, battuti a macchina uno alla volta */
+.fin-big {
+  --fin-big: #61c2e1;
+  position: absolute;
+  top: 10.8713%;                   /* 173,94 / 1600 */
+  width: 4.8025%;                  /* 57,63 / 1200 */
+  height: 3.6019%;                 /* 57,63 / 1600 */
+  background: var(--fin-big);
+  visibility: hidden;
+}
+.fin-big.is-on { visibility: visible; }
+.fin-big:nth-child(1) { left: 17.2908%; }   /* 207,49 */
+.fin-big:nth-child(2) { left: 23.4892%; }   /* 281,87 */
+.fin-big:nth-child(3) { left: 29.7475%; }   /* 356,97 */
+.fin-big:nth-child(4) { left: 35.9442%; }   /* 431,33 */
+
+/* Testo a macchina sotto la cornice: x 208,8–1003 pt, da y 1130,5 pt
+   (prima linea di base a 1165,4 pt come nel PDF) fino quasi al fondo */
+.fin-text {
+  position: absolute;
+  left: 17.4%;
+  top: 70.6563%;
+  width: 66.1833%;
+  bottom: .625%;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  /* 36 pt; --fin-fit (dallo script) lo riduce solo se il blocco più lungo non sta */
+  font-size: calc(3cqw * var(--fin-fit, 1));
+  line-height: 1.2;
+  text-align: justify;
+  hyphens: none;
+  pointer-events: none;
+}
+
+.fin-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: var(--fin-c);
+  visibility: hidden;
+}
+.fin-block.is-active { visibility: visible; }
+.fin-block p { margin: 0; }
+.fin-block p + p { margin-top: 1.2em; }      /* una riga vuota, come nel PDF */
+.fin-block strong { font-weight: 700; }
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.fin-block .fin-ch { visibility: hidden; }
+.fin-block.is-active .fin-ch.is-on { visibility: visible; }
+
+/* cursore arancio, come nelle altre pagine */
+.fin-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: fin-blink 1s steps(1) infinite;
+}
+.fin-text.is-typing .fin-text__cursor { animation: none; }
+
+@keyframes fin-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fin-text__cursor { display: none; }
+  .fin-wave { display: none; }
+  .fin-frame.is-waving .fin-sq { animation: none; }
+  .fin-soon { animation: none; }
+}
