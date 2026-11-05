@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/bleach.css?v=20261029c">
+  <link rel="stylesheet" href="assets/css/bleach.css?v=20261105b">
 </head>
 <body class="page-product">
 
@@ -93,9 +93,12 @@
   </nav>
 
   <!-- ============================================================
-       CONTENUTO: WILD COLOR BLEACH (Bleaching Powder Plex Nine+)
-       Un riquadro dalla tavola "bleach wild color page assets" 2026:
-       immagini che si alternano con un'onda di quadrati e testo
+       CONTENUTO: WILD COLOR BLEACH
+       Due tavole attaccate, che formano un unico riquadro:
+       1) Bleaching Powder Plex Nine+ (tavola "bleach wild color page assets")
+       2) Blue Lightening Cream (tavola "blue lightening bleach wild color
+          page assets")
+       In ognuno immagini che si alternano con un'onda di quadrati e testo
        scritto a macchina (bleach.js).
        ============================================================ -->
   <main class="site-main" id="main">
@@ -182,6 +185,98 @@
         <span class="bleach-text__cursor"></span>
       </div>
     </section>
+
+    <!-- ============================================================
+         2) BLUE LIGHTENING CREAM: stessa struttura ed effetti della
+            tavola sopra, quadratini e titolo blu (#4289c8).
+            Attaccata alla tavola sopra e tirata su di 24,05 pt: la doppia
+            fila di quadratini blu parte subito sotto il fondo delle
+            immagini sopra (dove finisce il riflesso sul ripiano).
+            La parte tagliata (in alto) è solo fondo nero.
+         ============================================================ -->
+    <section class="bleach-sheet bleach-sheet--blue" aria-labelledby="blue-title">
+      <h2 class="visually-hidden" id="blue-title">Blue Lightening Cream</h2>
+
+      <!-- tavola intera (595,28 pt), spostata in su dentro il riquadro tagliato -->
+      <div class="bleach-sheet__frame">
+        <!-- immagini a destra: si alternano a ogni blocco di testo -->
+        <img class="bleach-slide is-active"
+             src="assets/img/products/bleach/blue-slide-woman-1200.webp?v=20261105"
+             srcset="assets/img/products/bleach/blue-slide-woman-1200.webp?v=20261105 792w, assets/img/products/bleach/blue-slide-woman-2400.webp?v=20261105 1584w"
+             sizes="(max-width: 600px) calc(66vw - 21px), (max-width: 1248px) calc(66vw - 32px), 792px"
+             width="1584" height="1692" loading="lazy" alt="Smiling blonde woman holding in her open hands a glowing tube of Wild Color Blue Lightening Cream.">
+        <img class="bleach-slide"
+             src="assets/img/products/bleach/blue-slide-tube-1200.webp?v=20261105"
+             srcset="assets/img/products/bleach/blue-slide-tube-1200.webp?v=20261105 792w, assets/img/products/bleach/blue-slide-tube-2400.webp?v=20261105 1584w"
+             sizes="(max-width: 600px) calc(66vw - 21px), (max-width: 1248px) calc(66vw - 32px), 792px"
+             width="1584" height="1692" loading="lazy" alt="Tube and box of Wild Color Blue Lightening Cream, 250 g.">
+
+        <!-- onda di quadrati per il cambio immagine (riempita da bleach.js) -->
+        <div class="bleach-wave" aria-hidden="true"></div>
+
+        <!-- titolo, fisso sopra le immagini -->
+        <img class="bleach-sheet__over"
+             src="assets/img/products/bleach/blue-overlay-1200.webp?v=20261105"
+             srcset="assets/img/products/bleach/blue-overlay-1200.webp?v=20261105 1200w, assets/img/products/bleach/blue-overlay-2400.webp?v=20261105 2400w"
+             sizes="(max-width: 600px) calc(100vw - 32px), (max-width: 1248px) calc(100vw - 48px), 1200px"
+             width="2400" height="1692" loading="lazy" alt="">
+
+        <!-- quadratini blu (18 × 2): a ogni cambio immagine fanno un'onda da sinistra a destra -->
+        <div class="bleach-squares" aria-hidden="true">
+          <span class="bleach-sq" style="--i:0"></span>
+          <span class="bleach-sq" style="--i:1"></span>
+          <span class="bleach-sq" style="--i:2"></span>
+          <span class="bleach-sq" style="--i:3"></span>
+          <span class="bleach-sq" style="--i:4"></span>
+          <span class="bleach-sq" style="--i:5"></span>
+          <span class="bleach-sq" style="--i:6"></span>
+          <span class="bleach-sq" style="--i:7"></span>
+          <span class="bleach-sq" style="--i:8"></span>
+          <span class="bleach-sq" style="--i:9"></span>
+          <span class="bleach-sq" style="--i:10"></span>
+          <span class="bleach-sq" style="--i:11"></span>
+          <span class="bleach-sq" style="--i:12"></span>
+          <span class="bleach-sq" style="--i:13"></span>
+          <span class="bleach-sq" style="--i:14"></span>
+          <span class="bleach-sq" style="--i:15"></span>
+          <span class="bleach-sq" style="--i:16"></span>
+          <span class="bleach-sq" style="--i:17"></span>
+          <span class="bleach-sq" style="--i:0"></span>
+          <span class="bleach-sq" style="--i:1"></span>
+          <span class="bleach-sq" style="--i:2"></span>
+          <span class="bleach-sq" style="--i:3"></span>
+          <span class="bleach-sq" style="--i:4"></span>
+          <span class="bleach-sq" style="--i:5"></span>
+          <span class="bleach-sq" style="--i:6"></span>
+          <span class="bleach-sq" style="--i:7"></span>
+          <span class="bleach-sq" style="--i:8"></span>
+          <span class="bleach-sq" style="--i:9"></span>
+          <span class="bleach-sq" style="--i:10"></span>
+          <span class="bleach-sq" style="--i:11"></span>
+          <span class="bleach-sq" style="--i:12"></span>
+          <span class="bleach-sq" style="--i:13"></span>
+          <span class="bleach-sq" style="--i:14"></span>
+          <span class="bleach-sq" style="--i:15"></span>
+          <span class="bleach-sq" style="--i:16"></span>
+          <span class="bleach-sq" style="--i:17"></span>
+        </div>
+
+        <!-- testo vero (letto da Google e dai lettori di schermo) -->
+        <div class="visually-hidden">
+          <p><strong>Wild Color™ Lightening Cream</strong> is formulated with oils for a gentle, precise application. Up to six levels of lightening. Counters unwanted yellowish tones and ensures perfect results with any bleaching technique.</p>
+          <p><strong>USAGE:</strong> In a non-metallic bowl, mix 30 g of Wild Color™ Lightening Cream with 45 g of Wild Color™ Oxidizing Emulsion Cream at 20 volumes for mild lightening (2 to 3 levels), 30 volumes for medium lightening (4 to 5 levels) or 40 volumes for strong lightening (5 to 6 levels). Apply the product on the parts to be lightened and leave it on for 15 to 50 minutes (maximum 15 minutes if under heat source). We recommend checking the lightening power during the application time anyway, considering the desired lightening effect, the application base, the condition of the hair and the room temperature. Avoid contact with skin. At the end of the treatment, rinse thoroughly and use a suitable shampoo.</p>
+        </div>
+
+        <!-- stesso testo, diviso in blocchi scritti a macchina uno alla volta -->
+        <div class="bleach-text" aria-hidden="true">
+          <p class="bleach-block"><strong>Wild Color™ Lightening Cream</strong> is formulated with oils for a gentle, precise application. Up to six levels of lightening. Counters unwanted yellowish tones and ensures perfect results with any bleaching technique.</p>
+          <p class="bleach-block"><strong>USAGE:</strong> In a non-metallic bowl, mix 30 g of Wild Color™ Lightening Cream with 45 g of Wild Color™ Oxidizing Emulsion Cream at 20 volumes for mild lightening (2 to 3 levels), 30 volumes for medium lightening (4 to 5 levels) or 40 volumes for strong lightening (5 to 6 levels).</p>
+          <p class="bleach-block">Apply the product on the parts to be lightened and leave it on for 15 to 50 minutes (maximum 15 minutes if under heat source).</p>
+          <p class="bleach-block">We recommend checking the lightening power during the application time anyway, considering the desired lightening effect, the application base, the condition of the hair and the room temperature. Avoid contact with skin. At the end of the treatment, rinse thoroughly and use a suitable shampoo.</p>
+          <span class="bleach-text__cursor"></span>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============================================================
@@ -196,7 +291,7 @@
         <a href="mailto:info@wildworldhair.com">info@wildworldhair.com</a>
       </p>
       <p class="site-footer__legal">
-        P.IVA / C.F. / Reg. Impr. MI 08678280960
+        P.IVA / C.F. / Reg. Impr. IT 08678280960
         <span class="sep" aria-hidden="true">|</span>
         © <span data-year>2026</span> Wild World Hair S.r.l.
       </p>
@@ -204,6 +299,6 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/bleach.js?v=20261029b" defer></script>
+  <script src="assets/js/bleach.js?v=20261105" defer></script>
 </body>
 </html>

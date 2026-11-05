@@ -1,11 +1,14 @@
 /* ==========================================================================
-   WILD COLOR – Pagina Bleach (Bleaching Powder Plex Nine+)
-   Un riquadro dalla tavola "bleach wild color page assets" (stessa misura
+   WILD COLOR – Pagina Bleach (Bleaching Powder Plex Nine+ e
+   Blue Lightening Cream)
+   Due tavole attaccate, che formano un unico riquadro, da "bleach wild color
+   page assets" e "blue lightening bleach wild color page assets" (stessa misura
    dei riquadri della pagina Peroxide, 844,44 × 595,28 pt):
-   - a destra le immagini (acrobata / barattolo) che si alternano con
+   - a destra le immagini (acrobata / barattolo; ragazza / tubetto) che si alternano con
      un'onda di quadrati (vedi bleach.js);
-   - sopra, fisso, il titolo BLEACHING POWDER PLEX NINE+;
-   - i 36 quadratini, che a ogni cambio immagine fanno un'onda;
+   - sopra, fisso, il titolo (BLEACHING POWDER PLEX NINE+ bianco;
+     BLUE LIGHTENING CREAM blu #4289c8);
+   - i 36 quadratini (bianchi / blu), che a ogni cambio immagine fanno un'onda;
    - a sinistra, sotto il titolo, il testo scritto a macchina, che non
      arriva mai sopra le immagini.
    Tutte le posizioni sono in % della tavola: su computer e telefono
@@ -37,6 +40,7 @@
 
 /* Riquadro ---------------------------------------------------------------- */
 .bleach-sheet {
+  --bleach-sq-color: #fff;         /* colore dei quadratini in alto */
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -45,6 +49,25 @@
   overflow: hidden;
   background: #000;                /* stesso nero dei bordi della foto dell'acrobata
                                       (nel PDF era #1d1d1b: si vedeva lo stacco) */
+}
+
+/* Seconda tavola: Blue Lightening Cream, quadratini blu come il titolo.
+   È attaccata alla prima e tagliata in alto di 24,05 pt di solo fondo nero
+   (28,347 pt di margine sopra i quadratini − 4,301 pt, lo stesso spazio che
+   c'è tra le due file di quadratini): così la doppia fila blu parte subito
+   sotto il fondo delle immagini della tavola sopra, dove finisce il riflesso.
+   Il contenuto sta in .bleach-sheet__frame, alto come la tavola intera
+   (595,276 pt) e spostato in su: tutte le posizioni in % restano le stesse. */
+.bleach-sheet--blue {
+  --bleach-sq-color: #4289c8;
+  aspect-ratio: 844.439 / 571.230;
+}
+.bleach-sheet--blue .bleach-sheet__frame {
+  position: absolute;
+  left: 0;
+  top: -4.2095%;                   /* 24,046 / 571,230 */
+  width: 100%;
+  height: 104.2095%;               /* 595,276 / 571,230 */
 }
 
 /* Immagini a destra (da x 287,1 pt al bordo; le due tavole sono già
@@ -103,7 +126,7 @@
   pointer-events: none;
 }
 .bleach-sq {
-  background: #fff;
+  background: var(--bleach-sq-color);
 }
 .bleach-squares.is-waving .bleach-sq {
   animation: bleach-sq-wave .6s ease-in-out both;
