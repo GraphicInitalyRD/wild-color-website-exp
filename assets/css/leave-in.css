@@ -1,0 +1,197 @@
+/* ==========================================================================
+   WILDCARE – Pagina Leave-in
+   Un unico riquadro dal PDF "Leave-In Assets for website page"
+   (2 pagine 1200 × 1400 pt, due "punti di arrivo"):
+     1) ragazza con la bottiglia – 4 quadratini pieni in alto a sinistra
+     2) bottiglia spray
+   Sequenza in loop (leave-in.js): dal foro dello spray della foto di arrivo
+   parte uno spruzzo (nebbia + goccioline) che si allarga in tutta la cornice
+   e trasforma la foto nell'altra; intanto il blocco dei 4 quadratini pieni
+   fa il giro della cornice (in senso orario) con un'onda e torna in alto a
+   sinistra, e il testo si cancella e si riscrive a macchina → fermo 3 s.
+   In alto, fisse, LEAVE-IN / 10 in 1 e COMING SOON (che lampeggia, come
+   nella pagina Finishing Products).
+   Tutte le posizioni sono in % della pagina del PDF (.li-stage, 1200 × 1400 pt):
+   su computer il riquadro è la pagina intera; sul telefono (riquadro stretto)
+   si tagliano i margini neri ai lati, così foto e testo sono più grandi.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure: quella installata sul dispositivo
+   (Mac, iPhone, iPad). Dove manca si passa a Roboto (Google Fonts). */
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Thin"), local("Helvetica Neue Thin");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Thin";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.li-wrap {
+  container-type: inline-size;     /* per il taglio su schermo stretto */
+}
+
+.li-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1200 / 1400;
+  overflow: hidden;
+  background: #000;
+}
+
+/* la pagina del PDF: tutte le misure interne sono in % di questa */
+.li-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;     /* 1 cqw = 12 pt della pagina */
+}
+
+/* Riquadro stretto (telefono): si mostra solo x 196–1016 pt, tutta l'altezza */
+@container (max-width: 620px) {
+  .li-sheet  { aspect-ratio: 820 / 1400; }
+  .li-stage  {
+    left: -23.9024%;               /* −196 / 820 */
+    width: 146.3415%;              /* 1200 / 820 */
+  }
+}
+
+/* Scritte in alto (Helvetica Neue UltraLight bianca, immagini dal PDF con
+   trasparenza; il riquadro di ogni immagine ha circa 1 pt di margine attorno alle lettere) */
+.li-title,
+.li-soon {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+/* LEAVE-IN / 10 in 1 (63,6 pt): x 209,5–441,5 pt, y 14,5–137,5 pt */
+.li-title {
+  left: 17.4583%;
+  top: 1.0357%;
+  width: 19.3333%;
+}
+/* COMING SOON (61,1 pt): x 601,5–990,5 pt, y 90,5–138,5 pt, allineata a destra
+   con la cornice e sulla stessa riga di "10 in 1"; lampeggia */
+.li-soon {
+  left: 50.125%;
+  top: 6.4643%;
+  width: 32.4167%;
+  animation: li-soon-blink 1.4s ease-in-out infinite;
+}
+@keyframes li-soon-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .15; }
+}
+
+/* Foto, spruzzo e cornice: occupano il rettangolo esterno della cornice
+   (x 207,069–992,931 pt, y 154,578–1026,901 pt); la cornice sta sopra */
+.li-slide,
+.li-spray,
+.li-frame {
+  position: absolute;
+  left: 17.2558%;
+  top: 11.0413%;
+  width: 65.4885%;
+  height: 62.3088%;
+}
+
+.li-slide {
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+}
+.li-slide.is-active { opacity: 1; }
+
+.li-spray {
+  pointer-events: none;
+  visibility: hidden;
+}
+.li-spray.is-on { visibility: visible; }
+
+/* Cornice: 288 quadratini (lato 16,93 pt + filetto bianco di 1 pt,
+   griglia 36 × 40, due file su ogni lato), creati da leave-in.js.
+   Il filetto è a cavallo del bordo, come nel PDF: il quadratino è più
+   grande di 1 pt e spostato di mezzo punto in alto a sinistra.
+   Durante il giro ogni quadratino si ingrandisce (--sc) al passaggio
+   del blocco pieno. */
+.li-frame { pointer-events: none; }
+.li-sq {
+  position: absolute;
+  width: 2.2813%;                  /* 17,928 / 785,862 */
+  height: 2.0552%;                 /* 17,928 / 872,323 */
+  margin: -.0636% 0 0 -.0636%;     /* −0,5 pt (i margini in % sono sulla larghezza) */
+  border: calc(100cqw / 1200) solid #fff;   /* 1 pt */
+  transform: scale(var(--sc, 1));
+}
+.li-sq.is-full { background: #fff; }
+
+/* Testo a macchina sotto la cornice: x 206,96–992,93 pt (giustificato come
+   la cornice), prima linea di base a 1072,4 pt come nel PDF, fino quasi al fondo */
+.li-text {
+  position: absolute;
+  left: 17.2467%;
+  top: 74.8%;
+  width: 65.4975%;
+  bottom: .5%;
+  color: #fff;
+  font-family: "WC Helvetica Thin", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  /* 26 pt; --li-fit (dallo script) lo riduce solo se il testo non sta */
+  font-size: calc(100cqw * 26 / 1200 * var(--li-fit, 1));
+  line-height: 1.2;
+  text-align: justify;
+  hyphens: none;
+  pointer-events: none;
+}
+
+.li-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.li-block p { margin: 0; }
+.li-block p + p { margin-top: .692em; }      /* spazio prima di USAGE, come nel PDF */
+.li-block strong { font-weight: 700; }
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.li-block .li-ch { visibility: hidden; }
+.li-block .li-ch.is-on { visibility: visible; }
+
+/* cursore arancio, come nelle altre pagine */
+.li-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: li-blink 1s steps(1) infinite;
+}
+.li-text.is-typing .li-text__cursor { animation: none; }
+
+@keyframes li-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .li-text__cursor { display: none; }
+  .li-spray { display: none; }
+  .li-soon { animation: none; }
+}
