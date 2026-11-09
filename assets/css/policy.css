@@ -1,0 +1,93 @@
+/* ==========================================================================
+   WILD COLOR – Pagina Privacy & Cookie Policy
+   Testo semplice e leggibile su fondo nero, colonna stretta centrata.
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.policy {
+  max-width: 760px;
+  padding-top: 40px;
+  padding-bottom: 56px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Pulsanti lingua */
+.policy-lang {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.policy-lang a {
+  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 3px;
+  color: var(--c-white);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: border-color .2s var(--ease), color .2s var(--ease);
+}
+.policy-lang a:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  text-decoration: none;
+}
+
+/* Titoli e testo */
+.policy h2 {
+  margin: 36px 0 6px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, .25);
+  color: var(--c-white);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.policy-section > h2:first-child { margin-top: 0; }
+
+.policy h3 {
+  margin: 20px 0 4px;
+  color: var(--c-white);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.policy p,
+.policy ul { margin: 0 0 10px; }
+.policy ul { padding-left: 20px; }
+.policy li + li { margin-top: 6px; }
+.policy strong { color: var(--c-white); font-weight: 500; }
+
+.policy-updated {
+  color: var(--c-text-soft);
+  font-size: 12px;
+  margin-bottom: 14px !important;
+}
+
+.policy-section + .policy-section {
+  margin-top: 56px;
+  padding-top: 8px;
+}
+
+/* Le ancore (#privacy, #cookie, #en, #it) non finiscono sotto l'header fisso */
+.policy [id] { scroll-margin-top: calc(var(--header-h) + 24px); }
+
+/* Responsive -------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .policy { padding-top: 28px; padding-bottom: 40px; font-size: 13.5px; }
+  .policy-lang { margin-bottom: 28px; }
+  .policy h2 { font-size: 16px; margin-top: 30px; }
+  .policy-section + .policy-section { margin-top: 44px; }
+}
