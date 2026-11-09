@@ -1,0 +1,210 @@
+/* ==========================================================================
+   WILDCARE – Pagina Restructuring Products
+   Un unico riquadro dal PDF "restructuring products page Assets for website
+   page" (pagine 1200 × 1400 pt): quattro "punti di arrivo" in loop
+   (restructuring.js):
+     1) tutti i prodotti   2) shampoo 1000 ml   3) shampoo 250 ml   4) maschera 250 ml
+   A ogni cambio il blocco dei 4 quadratini pieni fa il giro della cornice
+   (onda, come Leave-in) e la foto nuova entra con l'onda di quadrati
+   (come Bleach), dall'angolo in alto a sinistra. Sotto la cornice il testo
+   della pagina 5 del PDF, a macchina: Shampoo (pag. 2 e 3), Mask (pag. 4).
+   In alto, fisse, RESTRUCTURING / MASK & SHAMPOO; dentro la cornice
+   COMING SOON che lampeggia per tutta la sequenza.
+   Tutte le posizioni sono in % della pagina del PDF (.rs-stage):
+   su computer il riquadro è la pagina intera; sul telefono (riquadro stretto)
+   si tagliano i margini neri ai lati, come nella pagina Leave-in.
+   ========================================================================== */
+
+/* Helvetica Neue della brochure (Light + Bold): quella installata sul
+   dispositivo (Mac, iPhone, iPad). Dove manca si passa a Roboto. */
+@font-face {
+  font-family: "WC Helvetica Light";
+  src: local("HelveticaNeue-Light"), local("Helvetica Neue Light");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "WC Helvetica Light";
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Riquadro ---------------------------------------------------------------- */
+.rs-wrap {
+  container-type: inline-size;     /* per il taglio su schermo stretto */
+}
+
+.rs-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1200 / 1400;
+  overflow: hidden;
+  background: #000;
+}
+
+/* la pagina del PDF: tutte le misure interne sono in % di questa */
+.rs-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;     /* 1 cqw = 12 pt della pagina */
+}
+
+/* Riquadro stretto (telefono): si mostra solo x 196–1016 pt, tutta l'altezza */
+@container (max-width: 620px) {
+  .rs-sheet  { aspect-ratio: 820 / 1400; }
+  .rs-stage  {
+    left: -23.9024%;               /* −196 / 820 */
+    width: 146.3415%;              /* 1200 / 820 */
+  }
+}
+
+/* Scritte (Helvetica Neue UltraLight bianca, immagini dal PDF con
+   trasparenza; 1 pt di margine attorno alle lettere) */
+.rs-title,
+.rs-soon {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+/* RESTRUCTURING / MASK & SHAMPOO (74,6 pt): x 292,5–909,5 pt, y 14–141 pt */
+.rs-title {
+  left: 24.375%;
+  top: 1%;
+  width: 51.4167%;
+}
+/* COMING SOON (61 pt), dentro la cornice: x 551–941 pt, y 209,5–257,5 pt; lampeggia */
+.rs-soon {
+  left: 45.9167%;
+  top: 14.9643%;
+  width: 32.5%;
+  animation: rs-soon-blink 1.4s ease-in-out infinite;
+}
+@keyframes rs-soon-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .15; }
+}
+
+/* Foto e onda: x della cornice (207,069–992,931 pt), y dalla cornice
+   (154,578 pt) al fondo della foto del PDF (1029,869 pt: il riflesso sul
+   ripiano scende 3 pt sotto la cornice, come nel PDF) */
+.rs-slide,
+.rs-wave {
+  position: absolute;
+  left: 17.2558%;
+  top: 11.0413%;
+  width: 65.4885%;
+  height: 62.5208%;
+}
+
+.rs-slide {
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+}
+.rs-slide.is-active { opacity: 1; }
+
+/* Onda di quadrati (6 × 7) per il cambio foto, come la pagina Bleach:
+   ogni quadrato mostra il suo pezzo della foto nuova e cresce dal centro;
+   la scala di ogni quadrato è calcolata da restructuring.js (--k) */
+.rs-wave {
+  pointer-events: none;
+  visibility: hidden;
+}
+.rs-wave.is-on { visibility: visible; }
+.rs-wave__tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  transform: scale(var(--k, 0));
+}
+
+/* Cornice: rettangolo esterno x 207,069–992,931 pt, y 154,578–1026,901 pt.
+   288 quadratini (lato 16,93 pt + filetto bianco di 1 pt, griglia 36 × 40,
+   due file su ogni lato), creati da restructuring.js. Il filetto è a cavallo
+   del bordo, come nel PDF. Durante il giro ogni quadratino si ingrandisce
+   (--sc) al passaggio del blocco pieno. */
+.rs-frame {
+  position: absolute;
+  left: 17.2558%;
+  top: 11.0413%;
+  width: 65.4885%;
+  height: 62.3088%;
+  pointer-events: none;
+}
+.rs-sq {
+  position: absolute;
+  width: 2.2813%;                  /* 17,928 / 785,862 */
+  height: 2.0552%;                 /* 17,928 / 872,323 */
+  margin: -.0636% 0 0 -.0636%;     /* −0,5 pt (i margini in % sono sulla larghezza) */
+  border: calc(100cqw / 1200) solid #fff;   /* 1 pt */
+  transform: scale(var(--sc, 1));
+}
+.rs-sq.is-full { background: #fff; }
+
+/* Testo a macchina sotto la cornice: Helvetica Neue Light 24 pt (pagina 5
+   del PDF), interlinea 28,8 pt, giustificato sulla larghezza della cornice
+   (x 207,07–992,93 pt), prima linea di base a ~1072 pt come Leave-in */
+.rs-text {
+  position: absolute;
+  left: 17.2558%;
+  top: 74.8%;
+  width: 65.4885%;
+  bottom: .5%;
+  color: #fff;
+  font-family: "WC Helvetica Light", "Helvetica Neue", "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  /* 24 pt; --rs-fit (dallo script) lo riduce solo se il blocco più lungo non sta */
+  font-size: calc(100cqw * 24 / 1200 * var(--rs-fit, 1));
+  line-height: 1.2;
+  text-align: justify;
+  hyphens: none;
+  pointer-events: none;
+}
+
+/* i due blocchi stanno nello stesso posto */
+.rs-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.rs-block p { margin: 0; }                   /* USAGE va a capo senza spazio, come nel PDF */
+.rs-block strong { font-weight: 700; }
+
+/* le lettere: già al loro posto, si accendono una alla volta */
+.rs-block .rs-ch { visibility: hidden; }
+.rs-block .rs-ch.is-on { visibility: visible; }
+
+/* cursore arancio, come nelle altre pagine */
+.rs-text__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .06em;
+  min-width: 1px;
+  margin-left: .06em;
+  background: #f57e18;
+  animation: rs-blink 1s steps(1) infinite;
+}
+.rs-text.is-typing .rs-text__cursor { animation: none; }
+
+@keyframes rs-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-text__cursor { display: none; }
+  .rs-wave { display: none; }
+  .rs-soon { animation: none; }
+}
